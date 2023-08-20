@@ -1,5 +1,3 @@
-from collections import deque
-
 def transform_sequence(seq):
     transformations = {
         "AC": "E",
@@ -7,31 +5,43 @@ def transform_sequence(seq):
         "BB": "E"
     }
     results = []
+
     for k, v in transformations.items():
         index = seq.find(k)
-        if index != -1:
-            results.append(seq[:index] + v + seq[index+len(k):])
-    # For Exx = xx transformation
+        while index != -1:
+            transformed = seq[:index] + v + seq[index+len(k):]
+            results.append(transformed)
+            index = seq.find(k, index + 1)
+
+    # For Ex = x transformation
     for i in range(len(seq) - 1):
-        if seq[i] == 'E' and seq[i+1] == seq[i+2]:
-            results.append(seq[:i] + seq[i+1:i+3] + seq[i+3:])
+        if seq[i] == 'E':
+            transformed = seq[:i] + seq[i+1] + seq[i+2:]
+            results.append(transformed)
+
     return results
 
-def sequence_transformation_problem(initial_sequence="ABABAECCEC"):
-    goal_sequence = "E"
+def dfs(seq, path, visited):
+    if seq == "E":
+        return path + [seq]
     
-    visited = set()
-    queue = deque([(initial_sequence, [])])
-    
-    while queue:
-        seq, path = queue.popleft()
-        
-        if seq == goal_sequence:
-            return path + [goal_sequence]
-        
-        if seq not in visited:
-            visited.add(seq)
-            for next_seq in transform_sequence(seq):
-                queue.append((next_seq, path + [seq]))
+    if seq in visited:
+        return None
 
-print(sequence_transformation_problem())
+    visited.add(seq)
+    for next_seq in transform_sequence(seq):
+        result = dfs(next_seq, path + [seq], visited)
+        if result:
+            return result
+    return None
+
+initial_seq = input("Enter the sequence: ")
+visited = set()
+result = dfs(initial_seq, [], visited)
+
+if result:
+    print("Transformation Process:")
+    for step in result:
+        print(step)
+else:
+    print("False")
