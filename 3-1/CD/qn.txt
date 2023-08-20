@@ -1,0 +1,7 @@
+i. Construct the Regular Expression for
+a. Identifying C, Java and Python variable names.
+b. Transition Diagram for the above regular expressions.
+c. Each variable name Suffix of ‘#’ and prefix of ‘$’
+ ii. Illustrate the various phases of developing machine-readable code for a 
+ C program that checks for palindrome numbers? Elaborate on the significance 
+ of each phase in the transformation of the C source code into executable code.

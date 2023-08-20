@@ -1,0 +1,53 @@
+Give a complete problem formulation for each of the following problems.
+Choose a formulation that is precise enough to be implemented.
+a) There are six glass boxes in a row, each with a lock. Each of the first five boxes holds 
+a key unlocking the next box in line; the last box holds a banana. You have the key to the 
+first box, and you want the banana.
+b) You start with the sequence ABABAECCEC, or in general any sequence made from 
+A, B, C, and E. You can transform this sequence using the following equalities: AC = E, 
+AB = BC, BB = E, and Exx = xx for any xx. For example, ABBC can be transformed into 
+AEC, and then AC, and then E. Your goal is to produce the sequence E.
+
+--- glass box explanation
+Glass Boxes with Banana Problem:
+
+State Space:
+Each state can be represented by a tuple of seven elements, where each element can be either "locked" or "unlocked" (or "banana" for the last box). For example, the initial state is ("unlocked", "locked", "locked", "locked", "locked", "locked", "banana").
+
+Initial State:
+("unlocked", "locked", "locked", "locked", "locked", "locked", "banana")
+
+Actions:
+For each state, the possible action is to unlock the next box if you have the key from the previous box.
+
+Transition Model:
+If you unlock box i, then the state changes from ...,"locked",... at position i to ...,"unlocked",... at position i.
+
+Goal Test:
+The state in which the sixth box is "unlocked" (i.e., ("unlocked", "unlocked", "unlocked", "unlocked", "unlocked", "unlocked", "banana")).
+
+Path Cost:
+Each step of unlocking a box can have a cost of 1, so the path cost is the number of boxes unlocked.
+
+
+--- sequence explanation
+
+Sequence Transformation Problem:
+
+State Space:
+Each state is a sequence of characters made from A, B, C, E.
+
+Initial State:
+ABABAECCEC (or any given sequence)
+
+Actions:
+For each state (sequence), the possible actions are the transformations allowed by the given equalities. For instance, if the sequence contains "AC", one possible action is to replace "AC" with "E".
+
+Transition Model:
+Applying an action (equality transformation) to a sequence results in a new sequence. For example, applying the transformation AC = E to ABACB results in AEBB.
+
+Goal Test:
+The sequence is just "E".
+
+Path Cost:
+Each transformation can have a cost of 1, so the path cost is the number of transformations applied.

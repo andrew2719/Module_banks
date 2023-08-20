@@ -1,0 +1,97 @@
+ast tree--
+Abstract Syntax Tree (AST)
+main()
+    |
+    |--- Declaration: int n, reversed, remainder, original
+    |
+    |--- FunctionCall: printf
+    |
+    |--- FunctionCall: scanf
+    |
+    |--- Assignment: original = n
+    |
+    |--- While: n != 0
+    |       |
+    |       |--- Assignment: remainder = n % 10
+    |       |
+    |       |--- Assignment: reversed = reversed * 10 + remainder
+    |       |
+    |       |--- Assignment: n /= 10
+    |
+    |--- If: original == reversed
+            |
+            |--- TrueBranch: printf("%d is a palindrome.", original)
+            |
+            |--- FalseBranch: printf("%d is not a palindrome.", original)
+
+
+
+
+
+
+--------------------------------------------------
+from syntax_analyzer import SyntaxAnalyzer
+from semantic_analyzer import SemanticAnalyzer
+
+tokens = ["int", "main", "(", ")", "{", "int", "n", ",", "reversed", "=", "0", ",", "remainder", ",", "original", ";", "printf", "(", ")", ";", "while", "(", ")", "{", "}", "if", "(", ")", "{", "printf", "(", ")", ";", "}", "return", "0", ";", "}"]
+
+# Syntax Analysis
+parser = SyntaxAnalyzer(tokens)
+ast = parser.parse()
+
+# Semantic Analysis
+analyzer = SemanticAnalyzer()
+analyzer.analyze(ast)
+--------------------------------------------------
+
+from syntax_analyzer import SyntaxAnalyzer, Node
+from semantic_analyzer import SemanticAnalyzer
+from intermediate_code_generator import IntermediateCodeGenerator
+
+tokens = ["int", "main", "(", ")", "{", "int", "n", ",", "reversed", "=", "0", ",", "remainder", ",", "original", ";", "printf", "(", ")", ";", "while", "(", ")", "{", "}", "if", "(", ")", "{", "printf", "(", ")", ";", "}", "return", "0", ";", "}"]
+
+# Syntax Analysis
+parser = SyntaxAnalyzer(tokens)
+ast = parser.parse()
+
+# Semantic Analysis
+analyzer = SemanticAnalyzer()
+analyzer.analyze(ast)
+
+# Intermediate Code Generation
+generator = IntermediateCodeGenerator()
+generator.generate(ast)
+print(generator.get_code())
+--------------------------------------------------
+
+from syntax_analyzer import SyntaxAnalyzer, Node
+from semantic_analyzer import SemanticAnalyzer
+from intermediate_code_generator import IntermediateCodeGenerator
+from optimizer import Optimizer
+from code_generator import CodeGenerator
+
+tokens = ["int", "main", "(", ")", "{", "int", "n", ",", "reversed", "=", "0", ",", "remainder", ",", "original", ";", "printf", "(", ")", ";", "while", "(", ")", "{", "}", "if", "(", ")", "{", "printf", "(", ")", ";", "}", "return", "0", ";", "}"]
+
+# Syntax Analysis
+parser = SyntaxAnalyzer(tokens)
+ast = parser.parse()
+
+# Semantic Analysis
+analyzer = SemanticAnalyzer()
+analyzer.analyze(ast)
+
+# Intermediate Code Generation
+generator = IntermediateCodeGenerator()
+generator.generate(ast)
+intermediate_code = generator.get_code()
+
+# Optimization
+optimizer = Optimizer()
+optimized_code = optimizer.optimize(intermediate_code)
+
+# Code Generation
+code_gen = CodeGenerator()
+code_gen.generate(optimized_code)
+assembly_code = code_gen.get_assembly()
+print(assembly_code)
+--------------------------------------------------
