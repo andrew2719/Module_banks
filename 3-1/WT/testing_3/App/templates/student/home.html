@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Online Learning Platform</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'css/student/home.css'%}">
+    <!-- <script src="home.js" defer></script> -->
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="{%url 'courses'%}">Courses</a>
+        <a href="#">Reminders</a>
+        <a href="#">My Courses</a>
+        
+        <input type="text" id="searchInput" style="color: black;" placeholder="Search courses...">
+        <span class="search-icon" onclick="searchCourses()">🔍</span>
+        <a href="{%url 'profile'%}" class="profile">👤 Profile</a>
+        <a href="{%url 'logout'%}" class="logout">Logout</a>
+    </div>
+    <div class="hero-section">
+        <h1>Welcome to the Online Learning Platform</h1>
+        <p>Empower your learning journey with our diverse range of courses.</p>
+    </div>
+    <div class="course-progress">
+        <h2>Your Courses</h2>
+        <div class="course">
+            <p>Course 1: Web Development</p>
+            <progress value="70" max="100"></progress>
+            <span>70%</span>
+        </div>
+        <div class="course">
+            <p>Course 2: Machine Learning</p>
+            <progress value="40" max="100"></progress>
+            <span>40%</span>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 Online Learning Platform. All rights reserved.</p>
+        <p>Contact: andrewblaze2719@gmail.com | Address: 123 andrewblaze2719 vfstr</p>
+    </footer>
+
+    
+</body>
+</html>
+
+</body>
+</html>

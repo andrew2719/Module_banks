@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Online Learning Platform</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/student/courses.css' %}">
+    <style>
+    #course-display-area {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: space-between; /* Space out the courses evenly */
+        gap: 20px; /* Space between course items */
+        }
+
+    /* Individual course container */
+    .course-details-container {
+        flex: 0 0 calc(50% - 10px); /* Take up roughly half the container's width minus half the gap */
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+    }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{%url 'home'%}">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Reminders</a>
+        <a href="#">My Courses</a>
+        
+        <input type="text" id="searchInput" style="color: black;" placeholder="Search courses...">
+        <span><button id = "search-button" onclick="fetch_course()">🔍</button></span>
+        <a href="{% url 'profile'%}" class="profile">👤 Profile</a>
+    </div>
+    
+    <div id = "course-display-area"></div>
+
+    <script>
+            function fetch_all_courses() {
+        fetch(`/App/get_all_courses/`)  // Assuming this is the endpoint to get all courses
+        .then(response => response.json())
+        .then(data => {
+            let coursesContent = '';
+            console.log(data);
+            // Loop through each course and generate the HTML
+            data.courses.forEach(course => {
+                coursesContent += `
+                    <div class="course-details-container">
+                        <div class="course-logo">
+                            <img src="https://via.placeholder.com/150" alt="Course Logo">
+                        </div>
+                        <div class="course-info">
+                            <h2>${course.course_name}</h2>
+                            <p>Course Code: ${course.course_code}</p>
+                            <!-- ... add other elements as needed ... -->
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Insert the content into the display area
+            document.querySelector('#course-display-area').innerHTML = coursesContent;
+        })
+        .catch(error => {
+            console.error('Error fetching all courses:', error);
+        });
+    }
+
+
+        function fetch_course() {
+        // Get the course name from the input field
+        let courseName = document.getElementById('searchInput').value;
+        console.log(courseName);
+        // Fetch data from the backend
+        fetch(`/App/get_course/?course=${courseName}`)
+        .then(response => response.json())
+        .then(data => {
+            // Create the HTML content dynamically
+            // print the data
+            console.log(data);
+            let courseContent = `
+                <div class="course-details-container">
+                    <div class="course-logo">
+                        <img src="https://via.placeholder.com/150" alt="Course Logo">
+                    </div>
+                    <div class="course-info">
+                        <h2>${data.course_name}</h2>
+                        <p>Course Code: ${data.course_code}</p>
+                        <!-- ... add other elements as needed ... -->
+                    </div>
+                </div>
+            `;
+
+            // Insert the content into the display area
+            document.querySelector('#course-display-area').innerHTML = courseContent;
+        })
+        .catch(error => {
+            console.error('Error fetching course data:', error);
+        });
+    };
+    fetch_all_courses();
+    </script>
+
+</body>
+</html>

@@ -3,20 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Online Learning Platform</title>
+    <title>Login & Registration - Online Learning Platform</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="submit">Login</button>
-        </form>
+    <div class="container">
+        <div class="form-container" id="login-container">
+            <h2>Login</h2>
+            <form action="#">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button type="submit">Login</button>
+                <button id="google-login">Login with Google</button>
+                <p>Not a member? <a href="#" id="show-register">Register Now</a></p>
+            </form>
+        </div>
+        <div class="form-container" id="register-container">
+            <h2>Register</h2>
+            <form action="#">
+                <input type="text" placeholder="Full Name">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button type="submit">Register</button>
+                <button id="google-register">Register with Google</button>
+                <p>Already a member? <a href="#" id="show-login">Login</a></p>
+            </form>
+        </div>
     </div>
 </body>
 </html>

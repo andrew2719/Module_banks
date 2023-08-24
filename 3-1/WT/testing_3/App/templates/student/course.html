@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - Online Learning Platform</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/student/course.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{%url 'home'%}">Home</a>
+        <a href="{%url 'courses'%}">Courses</a>
+        <a href="#">Reminders</a>
+        <a href="{%url 'my_courses'%}">My Courses</a>
+        
+        <input type="text" id="searchInput" style="color: black;" placeholder="Search courses...">
+        <span class="search-icon" onclick="searchCourses()">🔍</span>
+        <a href="{% url 'c_profile'%}" class="profile">👤 Profile</a>
+    </div>
+    <div class="course-details-container">
+        <div class="course-logo">
+            <img src="https://via.placeholder.com/150" alt="Course Logo">
+        </div>
+        <div class="course-info">
+            <h2>Web Development</h2>
+            <div class="instructor-info">
+                <img src="https://via.placeholder.com/100" alt="Instructor Image" class="instructor-img">
+                <div>
+                    <p>Instructor: John Doe</p>
+                    <p>Qualifications: M.Sc. Computer Science</p>
+                </div>
+            </div>
+            <p>Duration: 6 weeks</p>
+            <p>Total Lectures: 30</p>
+            <p>Assignments: 5</p>
+            <p>Course Outcome: By the end of this course, students will be proficient in building responsive websites using modern web technologies.</p>
+        </div>
+    </div>
+    <div class="payment-section">
+        <p>Course Fee: $299</p>
+        <button>Enroll Now</button>
+    </div>
+</body>
+</html>

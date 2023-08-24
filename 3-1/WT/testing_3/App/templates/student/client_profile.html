@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Online Learning Platform</title>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/student/c_profile.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="{%url 'home'%}">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Reminders</a>
+        <a href="#">My Courses</a>
+        
+        <input type="text" id="searchInput" style="color: black;" placeholder="Search courses...">
+        <span class="search-icon" onclick="searchCourses()">🔍</span>
+        <a href="{% url 'profile'%}" class="profile">👤 Profile</a>
+    </div>
+    <div class="profile-container">
+        <div class="profile-pic">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture">
+        </div>
+        <div class="profile-details">
+            <h2>{{user.name}}</h2>
+            <p>Email: {{user.email}}</p>
+            <p>Joined: January 2023</p>
+            <div class="achievements">
+                <h3>Achievements</h3>
+                <div class="certificate">
+                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                    <p>Web Development</p>
+                </div>
+                <div class="certificate">
+                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                    <p>Machine Learning</p>
+                </div>
+                <a href="#" class="see-more">See More</a>
+            </div>
+        </div>
+        <div class="profile-badge">
+            <p>Elite Learner</p>
+        </div>
+    </div>
+    <div class="course-progress">
+        <h2>Your Courses</h2>
+        {% for course in courses_details %}
+        <div class="course">
+        <p>{{ course.course }}</p>
+        <progress value="{{ course.course_progress }}" max="100"></progress>
+        {% if course.completion_status %}
+        <span>Completed</span>
+        {% else %}
+        <span>{{ course.no_of_assignmetns_completed }}%</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+    </div>
+</body>
+</html>
