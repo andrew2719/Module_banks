@@ -1,25 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f4e1d2;
+    font-family: 'Poppins', sans-serif;
+}
+.logo{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    transform: translateY(-25%);
+    margin-left: 20px;
+    z-index: 1;
 }
 .navbar {
-    background-color: #333;
+    position: fixed;
+    top: 0px;
+    width: 98%;
+    left: 0px;
+    text-align:center;
+    background-color: rgba(255, 255, 255, 0.7);
     overflow: hidden;
     padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
 }
 .navbar a, .navbar input, .navbar .search-icon {
-    float: left;
-    display: block;
-    color: white;
+    display: inline-block;
+    color: #004974;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 .navbar a:hover {
-    background-color: #ddd;
-    color: black;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
 }
 .navbar .profile {
     float: right;
@@ -35,15 +53,19 @@ body {
     border-radius: 5px;
     margin-right: 10px;
 }
+.profile{
+    margin-right: 10px;
+}
 .hero-section {
-    background-color: #555;
-    color: #fff;
+    margin-top: 100px;
+    background-color: #f4e1d2;
+    color: #021b2b;
     padding: 100px 0;
     text-align: center;
 }
 .course-progress {
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
     margin: 20px;
     border-radius: 10px;
 }
@@ -52,6 +74,7 @@ body {
 }
 .course progress {
     width: 80%;
+
 }
 footer {
     background-color: #333;
