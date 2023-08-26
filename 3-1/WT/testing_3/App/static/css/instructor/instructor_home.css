@@ -1,47 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f4e1d2;
+    font-family: 'Poppins', sans-serif;
 }
-
-nav ul {
-    background-color: #333;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.logo{
+    margin-left: 20px;
+}
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 98%;
+    height: 50px;
+    left: 0px;
+    text-align:center;
+    background-color: rgba(255, 255, 255, 0.7);
     overflow: hidden;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-nav li {
-    float: left;
-}
-
-nav li a {
-    display: block;
-    color: white;
+.navbar a, .navbar input,.navbar .search-icon{
+    display: inline-block;
+    color: #004974;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-nav li a:hover {
-    background-color: #111;
-}
+.navbar .input-box{
+    margin: 5px;
 
-.welcome-section {
-    background-color: #fff;
-    padding: 50px 20px;
-    margin: 50px;
+}
+.navbar a:hover {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
     border-radius: 5px;
-    text-align: center;
+}
+.navbar .search-icon {
+    cursor: pointer;
+}
+.navbar input {
+
+    border: none;
+    
+    padding: 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+.profile{
+    margin-right: 10px;
 }
 
-h1 {
-    font-size: 2.5em;
+/* .first-wave{
+    position: absolute;
+    z-index: -1;
+} */
+.hero-section {
+    margin-top: -90px;
+    background-color: #f4e1d2;
+    color: #021b2b;
+    padding: 100px 0;
+    text-align: center;
+    /* margin-bottom: 225px; */
+}
+
+/* .wave2{
+    position: absolute;
+    z-index: -1;
+} */
+.course-progress {
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 30px;
+    border-radius: 10px;
+}
+.course {
     margin-bottom: 20px;
 }
+.course progress {
+    width: 80%;
 
-p {
-    font-size: 1.2em;
+}
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
 }

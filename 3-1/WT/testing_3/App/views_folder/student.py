@@ -12,6 +12,7 @@ def home(request):
         print(request.user.email)
         return render(request, "student/home.html")
     
+    
 def client_profile(request):
     if request.user.is_authenticated:
         # get the id

@@ -11,3 +11,7 @@ def instructor(request):
     if request.user.is_authenticated:
         print(request.user.email)
         return render(request, "instructor/instructor_home.html")
+    
+
+def addCourse(request):
+    return render(request, "instructor/add_course.html")

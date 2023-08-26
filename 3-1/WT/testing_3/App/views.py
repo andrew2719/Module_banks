@@ -61,6 +61,9 @@ def logout_(request):
     logout(request)
     return redirect("login")
 
+def landing_page(request):
+    return render(request, "landing.html")
+
 
 # def home(request):
 #     # if authenticated then show home page

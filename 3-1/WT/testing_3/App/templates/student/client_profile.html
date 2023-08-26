@@ -9,23 +9,36 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="{%url 'home'%}">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Reminders</a>
-        <a href="#">My Courses</a>
-        
-        <input type="text" id="searchInput" style="color: black;" placeholder="Search courses...">
-        <span class="search-icon" onclick="searchCourses()">🔍</span>
-        <a href="{% url 'profile'%}" class="profile">👤 Profile</a>
+        <h1 class="logo">BATCH-17</h1>
+
+        <div class="menu">
+            <a href="{%url 'home'%}">Home</a>
+            <a href="{%url 'courses'%}">Courses</a>
+            <a href="#">Reminders</a>
+            <a href="#">My Courses</a>
+            <input class="input-box" type="text" id="searchInput" style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
+            <span class="search-icon" onclick="searchCourses()">🔍</span>
+        </div>
+
+        <div class="user">
+            <a href="{%url 'profile'%}" class="profile">👤 Profile</a>
+            <a href="{%url 'logout'%}" class="logout">Logout</a>
+        </div>
     </div>
     <div class="profile-container">
-        <div class="profile-pic">
-            <img src="https://via.placeholder.com/150" alt="Profile Picture">
+        <div class="profile1">
+            <div class="profile-pic">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture">
+            </div>
+            <div class="details">
+                <h2>{{user.name}}</h2>
+                <p>Email: {{user.email}}</p>
+                <p>Joined: January 2023</p>
+            </div>
         </div>
+        
         <div class="profile-details">
-            <h2>{{user.name}}</h2>
-            <p>Email: {{user.email}}</p>
-            <p>Joined: January 2023</p>
+            
             <div class="achievements">
                 <h3>Achievements</h3>
                 <div class="certificate">
