@@ -7,17 +7,13 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 .logo{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    transform: translateY(-25%);
     margin-left: 20px;
-    z-index: 1;
 }
 .navbar {
     position: fixed;
     top: 0px;
     width: 98%;
+    height: 50px;
     left: 0px;
     text-align:center;
     background-color: rgba(255, 255, 255, 0.7);
@@ -25,22 +21,25 @@ body {
     padding: 10px 20px;
     backdrop-filter: blur(10px);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
-.navbar a, .navbar input, .navbar .search-icon {
+.navbar a, .navbar input,.navbar .search-icon{
     display: inline-block;
     color: #004974;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+
+.navbar .input-box{
+    margin: 5px;
+
+}
 .navbar a:hover {
     background-color: #000000;
     color: rgb(255, 255, 255);
     border-radius: 5px;
-}
-.navbar .profile {
-    float: right;
 }
 .navbar .search-icon {
     cursor: pointer;
