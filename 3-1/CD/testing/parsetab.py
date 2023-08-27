@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMMA EQUALS HEADER ID INCLUDE INT LPAREN NUMBER PLUS PRINTF RETURN RPAREN SEMICOLONprogram : INCLUDE HEADER INT ID LPAREN RPAREN block RETURN NUMBER SEMICOLONblock : statementsstatements : statement statementsstatements : statement : INT ID EQUALS expression SEMICOLONexpression : term PLUS termterm : IDterm : NUMBER'
+_lr_signature = 'COMMA DIVIDE ELSE EQUALITY EQUALS ID IF INT LBRACE LPAREN MINUS MODULO MULTIPLY NOT_EQUAL NUMBER PLUS RBRACE RETURN RPAREN SEMICOLON WHILEprogram : function\n               | function programfunction : INT ID LPAREN RPAREN LBRACE statements RBRACEstatements : statement\n                  | statement statementsstatement : declaration\n                 | assignment\n                 | if_statement\n                 | while_loop\n                 | return_statementdeclaration : INT declaration_list SEMICOLONdeclaration_list : declaration_item\n                        | declaration_item COMMA declaration_listdeclaration_item : ID\n                        | ID EQUALS expressionassignment : ID EQUALS expression SEMICOLONif_statement : IF LPAREN condition RPAREN LBRACE statements RBRACE\n                    | IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACEwhile_loop : WHILE LPAREN condition RPAREN LBRACE statements RBRACEreturn_statement : RETURN expression SEMICOLONcondition : expression EQUALITY expression\n                 | expression NOT_EQUAL expressionexpression : expression PLUS term\n                  | expression MINUS term\n                  | termterm : term MULTIPLY factor\n            | term DIVIDE factor\n            | term MODULO factor\n            | factorfactor : NUMBER\n              | ID'
     
-_lr_action_items = {'INCLUDE':([0,],[2,]),'$end':([1,21,],[0,-1,]),'HEADER':([2,],[3,]),'INT':([3,7,11,22,],[4,8,8,-5,]),'ID':([4,8,15,23,],[5,12,17,17,]),'LPAREN':([5,],[6,]),'RPAREN':([6,],[7,]),'RETURN':([7,9,10,11,14,22,],[-4,13,-2,-4,-3,-5,]),'EQUALS':([12,],[15,]),'NUMBER':([13,15,23,],[16,20,20,]),'SEMICOLON':([16,17,18,20,24,],[21,-7,22,-8,-6,]),'PLUS':([17,19,20,],[-7,23,-8,]),}
+_lr_action_items = {'INT':([0,2,8,12,13,14,15,16,17,25,34,41,49,59,62,65,66,68,70,],[3,3,9,9,-6,-7,-8,-9,-10,-3,-11,-20,-16,9,9,-17,-19,9,-18,]),'$end':([1,2,4,25,],[0,-1,-2,-3,]),'ID':([3,8,9,12,13,14,15,16,17,20,24,27,28,34,35,36,41,42,43,44,45,46,49,51,52,59,62,65,66,68,70,],[5,10,23,10,-6,-7,-8,-9,-10,33,33,33,33,-11,23,33,-20,33,33,33,33,33,-16,33,33,10,10,-17,-19,10,-18,]),'LPAREN':([5,18,19,],[6,27,28,]),'RPAREN':([6,30,31,32,33,38,40,54,55,56,57,58,60,61,],[7,-25,-29,-30,-31,50,53,-23,-24,-26,-27,-28,-21,-22,]),'LBRACE':([7,50,53,67,],[8,59,62,68,]),'IF':([8,12,13,14,15,16,17,34,41,49,59,62,65,66,68,70,],[18,18,-6,-7,-8,-9,-10,-11,-20,-16,18,18,-17,-19,18,-18,]),'WHILE':([8,12,13,14,15,16,17,34,41,49,59,62,65,66,68,70,],[19,19,-6,-7,-8,-9,-10,-11,-20,-16,19,19,-17,-19,19,-18,]),'RETURN':([8,12,13,14,15,16,17,34,41,49,59,62,65,66,68,70,],[20,20,-6,-7,-8,-9,-10,-11,-20,-16,20,20,-17,-19,20,-18,]),'EQUALS':([10,23,],[24,36,]),'RBRACE':([11,12,13,14,15,16,17,26,34,41,49,63,64,65,66,69,70,],[25,-4,-6,-7,-8,-9,-10,-5,-11,-20,-16,65,66,-17,-19,70,-18,]),'NUMBER':([20,24,27,28,36,42,43,44,45,46,51,52,],[32,32,32,32,32,32,32,32,32,32,32,32,]),'SEMICOLON':([21,22,23,29,30,31,32,33,37,47,48,54,55,56,57,58,],[34,-12,-14,41,-25,-29,-30,-31,49,-13,-15,-23,-24,-26,-27,-28,]),'COMMA':([22,23,30,31,32,33,48,54,55,56,57,58,],[35,-14,-25,-29,-30,-31,-15,-23,-24,-26,-27,-28,]),'PLUS':([29,30,31,32,33,37,39,48,54,55,56,57,58,60,61,],[42,-25,-29,-30,-31,42,42,42,-23,-24,-26,-27,-28,42,42,]),'MINUS':([29,30,31,32,33,37,39,48,54,55,56,57,58,60,61,],[43,-25,-29,-30,-31,43,43,43,-23,-24,-26,-27,-28,43,43,]),'EQUALITY':([30,31,32,33,39,54,55,56,57,58,],[-25,-29,-30,-31,51,-23,-24,-26,-27,-28,]),'NOT_EQUAL':([30,31,32,33,39,54,55,56,57,58,],[-25,-29,-30,-31,52,-23,-24,-26,-27,-28,]),'MULTIPLY':([30,31,32,33,54,55,56,57,58,],[44,-29,-30,-31,44,44,-26,-27,-28,]),'DIVIDE':([30,31,32,33,54,55,56,57,58,],[45,-29,-30,-31,45,45,-26,-27,-28,]),'MODULO':([30,31,32,33,54,55,56,57,58,],[46,-29,-30,-31,46,46,-26,-27,-28,]),'ELSE':([65,],[67,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'block':([7,],[9,]),'statements':([7,11,],[10,14,]),'statement':([7,11,],[11,11,]),'expression':([15,],[18,]),'term':([15,23,],[19,24,]),}
+_lr_goto_items = {'program':([0,2,],[1,4,]),'function':([0,2,],[2,2,]),'statements':([8,12,59,62,68,],[11,26,63,64,69,]),'statement':([8,12,59,62,68,],[12,12,12,12,12,]),'declaration':([8,12,59,62,68,],[13,13,13,13,13,]),'assignment':([8,12,59,62,68,],[14,14,14,14,14,]),'if_statement':([8,12,59,62,68,],[15,15,15,15,15,]),'while_loop':([8,12,59,62,68,],[16,16,16,16,16,]),'return_statement':([8,12,59,62,68,],[17,17,17,17,17,]),'declaration_list':([9,35,],[21,47,]),'declaration_item':([9,35,],[22,22,]),'expression':([20,24,27,28,36,51,52,],[29,37,39,39,48,60,61,]),'term':([20,24,27,28,36,42,43,51,52,],[30,30,30,30,30,54,55,30,30,]),'factor':([20,24,27,28,36,42,43,44,45,46,51,52,],[31,31,31,31,31,31,31,56,57,58,31,31,]),'condition':([27,28,],[38,40,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,12 +27,35 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> INCLUDE HEADER INT ID LPAREN RPAREN block RETURN NUMBER SEMICOLON','program',10,'p_program','test.py',51),
-  ('block -> statements','block',1,'p_block','test.py',55),
-  ('statements -> statement statements','statements',2,'p_statements','test.py',59),
-  ('statements -> <empty>','statements',0,'p_statements_empty','test.py',63),
-  ('statement -> INT ID EQUALS expression SEMICOLON','statement',5,'p_statement','test.py',67),
-  ('expression -> term PLUS term','expression',3,'p_expression','test.py',71),
-  ('term -> ID','term',1,'p_term','test.py',75),
-  ('term -> NUMBER','term',1,'p_term_number','test.py',79),
+  ('program -> function','program',1,'p_program','test4.py',80),
+  ('program -> function program','program',2,'p_program','test4.py',81),
+  ('function -> INT ID LPAREN RPAREN LBRACE statements RBRACE','function',7,'p_function','test4.py',88),
+  ('statements -> statement','statements',1,'p_statements','test4.py',92),
+  ('statements -> statement statements','statements',2,'p_statements','test4.py',93),
+  ('statement -> declaration','statement',1,'p_statement','test4.py',100),
+  ('statement -> assignment','statement',1,'p_statement','test4.py',101),
+  ('statement -> if_statement','statement',1,'p_statement','test4.py',102),
+  ('statement -> while_loop','statement',1,'p_statement','test4.py',103),
+  ('statement -> return_statement','statement',1,'p_statement','test4.py',104),
+  ('declaration -> INT declaration_list SEMICOLON','declaration',3,'p_declaration','test4.py',108),
+  ('declaration_list -> declaration_item','declaration_list',1,'p_declaration_list','test4.py',112),
+  ('declaration_list -> declaration_item COMMA declaration_list','declaration_list',3,'p_declaration_list','test4.py',113),
+  ('declaration_item -> ID','declaration_item',1,'p_declaration_item','test4.py',120),
+  ('declaration_item -> ID EQUALS expression','declaration_item',3,'p_declaration_item','test4.py',121),
+  ('assignment -> ID EQUALS expression SEMICOLON','assignment',4,'p_assignment','test4.py',128),
+  ('if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE','if_statement',7,'p_if_statement','test4.py',132),
+  ('if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE','if_statement',11,'p_if_statement','test4.py',133),
+  ('while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE','while_loop',7,'p_while_loop','test4.py',141),
+  ('return_statement -> RETURN expression SEMICOLON','return_statement',3,'p_return_statement','test4.py',145),
+  ('condition -> expression EQUALITY expression','condition',3,'p_condition','test4.py',149),
+  ('condition -> expression NOT_EQUAL expression','condition',3,'p_condition','test4.py',150),
+  ('expression -> expression PLUS term','expression',3,'p_expression','test4.py',154),
+  ('expression -> expression MINUS term','expression',3,'p_expression','test4.py',155),
+  ('expression -> term','expression',1,'p_expression','test4.py',156),
+  ('term -> term MULTIPLY factor','term',3,'p_term','test4.py',163),
+  ('term -> term DIVIDE factor','term',3,'p_term','test4.py',164),
+  ('term -> term MODULO factor','term',3,'p_term','test4.py',165),
+  ('term -> factor','term',1,'p_term','test4.py',166),
+  ('factor -> NUMBER','factor',1,'p_factor','test4.py',173),
+  ('factor -> ID','factor',1,'p_factor','test4.py',174),
 ]

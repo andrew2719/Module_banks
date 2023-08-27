@@ -6,13 +6,17 @@ tokens = (
     'NUMBER',
     'EQUALS',
     'PLUS',
-    'MULTIPLY'
+    'MULTIPLY',
+    'SEMICOLON',
+    'INT',
+    'FLOAT'
 )
 
 # Token rules
 t_EQUALS = r'='
 t_PLUS = r'\+'
 t_MULTIPLY = r'\*'
+t_SEMICOLON = r';'
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -22,7 +26,10 @@ def t_NUMBER(t):
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = 'ID'
+    if t.value in ['int', 'float']:
+        t.type = t.value.upper()
+    else:
+        t.type = 'ID'
     return t
 
 # Ignored characters
@@ -36,11 +43,26 @@ def t_error(t):
 lexer = lex.lex()
 
 # Parsing rules
-def p_statement_assign(t):
-    'statement : ID EQUALS expression'
-    t[0] = ('=', t[1], t[3])
+def p_program(t):
+    '''program : declaration
+               | assignment
+               | declaration program
+               | assignment program'''
+    if len(t) == 2:
+        t[0] = [t[1]]
+    else:
+        t[0] = [t[1]] + t[2]
 
-def p_expression_binop(t):
+def p_declaration(t):
+    '''declaration : INT ID SEMICOLON
+                   | FLOAT ID SEMICOLON'''
+    t[0] = ('declaration', t[1], t[2])
+
+def p_assignment(t):
+    'assignment : ID EQUALS expression SEMICOLON'
+    t[0] = ('assignment', t[1], t[3])
+
+def p_expression(t):
     '''expression : expression PLUS term
                   | term'''
     if len(t) == 4:
@@ -48,7 +70,7 @@ def p_expression_binop(t):
     else:
         t[0] = t[1]
 
-def p_term_binop(t):
+def p_term(t):
     '''term : term MULTIPLY factor
             | factor'''
     if len(t) == 4:
@@ -68,7 +90,12 @@ def p_error(t):
 parser = yacc.yacc()
 
 # Test it out
-data = "position = initial + rate * 60"
+data = '''
+int position;
+int initial;
+float rate;
+position = initial + rate * 60;
+'''
 
 # Generate the parse tree
 parse_tree = parser.parse(data)
