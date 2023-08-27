@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'NUMBER PLUS SEMICOLONprogram : expression SEMICOLONexpression : expression PLUS termexpression : termterm : NUMBER'
+_lr_signature = 'COMMA EQUALS HEADER ID INCLUDE INT LPAREN NUMBER PLUS PRINTF RETURN RPAREN SEMICOLONprogram : INCLUDE HEADER INT ID LPAREN RPAREN block RETURN NUMBER SEMICOLONblock : statementsstatements : statement statementsstatements : statement : INT ID EQUALS expression SEMICOLONexpression : term PLUS termterm : IDterm : NUMBER'
     
-_lr_action_items = {'NUMBER':([0,6,],[4,4,]),'$end':([1,5,],[0,-1,]),'SEMICOLON':([2,3,4,7,],[5,-3,-4,-2,]),'PLUS':([2,3,4,7,],[6,-3,-4,-2,]),}
+_lr_action_items = {'INCLUDE':([0,],[2,]),'$end':([1,21,],[0,-1,]),'HEADER':([2,],[3,]),'INT':([3,7,11,22,],[4,8,8,-5,]),'ID':([4,8,15,23,],[5,12,17,17,]),'LPAREN':([5,],[6,]),'RPAREN':([6,],[7,]),'RETURN':([7,9,10,11,14,22,],[-4,13,-2,-4,-3,-5,]),'EQUALS':([12,],[15,]),'NUMBER':([13,15,23,],[16,20,20,]),'SEMICOLON':([16,17,18,20,24,],[21,-7,22,-8,-6,]),'PLUS':([17,19,20,],[-7,23,-8,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'expression':([0,],[2,]),'term':([0,6,],[3,7,]),}
+_lr_goto_items = {'program':([0,],[1,]),'block':([7,],[9,]),'statements':([7,11,],[10,14,]),'statement':([7,11,],[11,11,]),'expression':([15,],[18,]),'term':([15,23,],[19,24,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,8 +27,12 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> expression SEMICOLON','program',2,'p_program','test.py',28),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','test.py',32),
-  ('expression -> term','expression',1,'p_expression_term','test.py',36),
-  ('term -> NUMBER','term',1,'p_term_number','test.py',40),
+  ('program -> INCLUDE HEADER INT ID LPAREN RPAREN block RETURN NUMBER SEMICOLON','program',10,'p_program','test.py',51),
+  ('block -> statements','block',1,'p_block','test.py',55),
+  ('statements -> statement statements','statements',2,'p_statements','test.py',59),
+  ('statements -> <empty>','statements',0,'p_statements_empty','test.py',63),
+  ('statement -> INT ID EQUALS expression SEMICOLON','statement',5,'p_statement','test.py',67),
+  ('expression -> term PLUS term','expression',3,'p_expression','test.py',71),
+  ('term -> ID','term',1,'p_term','test.py',75),
+  ('term -> NUMBER','term',1,'p_term_number','test.py',79),
 ]
