@@ -208,5 +208,10 @@ parser = yacc.yacc()
 # Generate the parse tree
 parse_tree = parser.parse(data)
 
+# for i in parse_tree:
+#     for j in i:
+#         for k in j:
+#             print(k)
+
 
 print("Parse tree:", parse_tree)
