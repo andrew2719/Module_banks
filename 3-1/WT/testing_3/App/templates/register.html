@@ -41,5 +41,63 @@
       </div>
     </form>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const form = document.querySelector("form");
+  
+      form.addEventListener("submit", function(event) {
+        // Prevent form submission
+        event.preventDefault();
+  
+        // Role validation
+        const role = document.querySelector('input[name="role"]:checked');
+        if (!role) {
+          alert("Please select a role.");
+          return;
+        }
+  
+        // Name validation
+        const name = form["name"].value;
+        if (name === "") {
+          alert("Please enter your name.");
+          return;
+        }
+  
+        // Email validation
+        const email = form["email"].value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;  // Modified to only allow Gmail addresses
+        if (!emailPattern.test(email)) {
+          alert("Please enter a valid Gmail address.");
+          return;
+        }
+  
+        // Password validation
+        const password = form["password"].value;
+        if (password.length < 6) {  // Check for minimum length
+          alert("Password must be at least 6 characters long.");
+          return;
+        }
+  
+        // Confirm Password validation
+        const confirmPassword = form.querySelector('input[placeholder="Confirm password"]').value;
+        if (password !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+  
+        // Terms and Conditions validation
+        const terms = form.querySelector('input[type="checkbox"]').checked;
+        if (!terms) {
+          alert("Please accept the terms and conditions.");
+          return;
+        }
+  
+        // If all validations pass, submit the form
+        form.submit();
+      });
+    });
+  </script>
+  
+  
 </body>
 </html>

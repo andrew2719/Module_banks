@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     {%load static%}
     <link rel="stylesheet" href="{% static 'css/student/c_profile.css' %}">
 </head>
+
 <body>
     <div class="navbar">
         <h1 class="logo">BATCH-17</h1>
@@ -16,7 +18,8 @@
             <a href="{%url 'courses'%}">Courses</a>
             <a href="#">Reminders</a>
             <a href="#">My Courses</a>
-            <input class="input-box" type="text" id="searchInput" style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
+            <input class="input-box" type="text" id="searchInput"
+                style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
             <span class="search-icon" onclick="searchCourses()">🔍</span>
         </div>
 
@@ -36,39 +39,44 @@
                 <p>Joined: January 2023</p>
             </div>
         </div>
-        
-        <div class="profile-details">
-            
-            <div class="achievements">
-                <h3>Achievements</h3>
-                <div class="certificate">
-                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
-                    <p>Web Development</p>
-                </div>
-                <div class="certificate">
-                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
-                    <p>Machine Learning</p>
-                </div>
-                <a href="#" class="see-more">See More</a>
+
+
+
+        <div class="achievements">
+            <h3>Achievements</h3>
+            <div class="certificates">
+            <div class="certificate">
+                <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                <p>Web Development</p>
             </div>
+            <div class="certificate">
+                <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                <p>Machine Learning</p>
+            </div>
+            <a href="#" class="see-more">See More</a>
         </div>
+    </div>
+
         <div class="profile-badge">
             <p>Elite Learner</p>
         </div>
+
+
     </div>
     <div class="course-progress">
         <h2>Your Courses</h2>
         {% for course in courses_details %}
         <div class="course">
-        <p>{{ course.course }}</p>
-        <progress value="{{ course.course_progress }}" max="100"></progress>
-        {% if course.completion_status %}
-        <span>Completed</span>
-        {% else %}
-        <span>{{ course.no_of_assignmetns_completed }}%</span>
-        {% endif %}
-    </div>
-    {% endfor %}
+            <p>{{ course.course }}</p>
+            <progress value="{{ course.course_progress }}" max="100"></progress>
+            {% if course.completion_status %}
+            <span>Completed</span>
+            {% else %}
+            <span>{{ course.no_of_assignmetns_completed }}%</span>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
 </body>
+
 </html>

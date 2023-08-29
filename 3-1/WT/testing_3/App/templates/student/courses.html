@@ -37,11 +37,12 @@
             console.log(data);
             // Loop through each course and generate the HTML
             data.courses.forEach(course => {
+                const courseUrl = `/App/courses/${course.course_code}`;
                 coursesContent += `
-                    <a href = "#" class = "course-link">
+                    <a href="${courseUrl}" class = 'course-link'>
                             <div class="course-details-container">
                         <div class="course-logo">
-                            <img src="https://via.placeholder.com/150" alt="Course Logo">
+                            <img src="${course.course_image}" alt="Course Logo" >
                         </div>
                         <div class="course-info">
                             <h2>${course.course_name}</h2>
@@ -72,19 +73,23 @@
         .then(data => {
             // Create the HTML content dynamically
             // print the data
+            let courseContent = '';
             console.log(data);
-            let courseContent = `
-                <div class="course-details-container">
-                    <div class="course-logo">
-                        <img src="https://via.placeholder.com/150" alt="Course Logo">
+            const courseUrl = `/App/courses/${data.course_data.course_code}`;
+                courseContent += `
+                    <a href="${courseUrl}" class = 'course-link'>
+                            <div class="course-details-container">
+                        <div class="course-logo">
+                            <img src="${data.course_data.course_image}" alt="Course Logo" >
+                        </div>
+                        <div class="course-info">
+                            <h2>${data.course_data.course_name}</h2>
+                            <p>Course Code: ${data.course_data.course_code}</p>
+                            <!-- ... add other elements as needed ... -->
+                        </div>
                     </div>
-                    <div class="course-info">
-                        <h2>${data.course_name}</h2>
-                        <p>Course Code: ${data.course_code}</p>
-                        <!-- ... add other elements as needed ... -->
-                    </div>
-                </div>
-            `;
+                        </a>
+                `;
 
             // Insert the content into the display area
             document.querySelector('#course-display-area').innerHTML = courseContent;

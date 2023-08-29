@@ -74,11 +74,24 @@ body {
     
     justify-content: left;
     align-items: top;
+    height: 150px;
+    /* overflow: hidden; */
 }
+
+
 
 .course-logo{
     padding: 15px;
     margin-right: 20px;
+    /* set the height and width to 150,150 */
+    width : 120px;
+    height : 120px;
+    /* border: #000000 1px solid; */
+}
+.course-logo img{
+    object-fit: cover;
+    width: 100%;
+    
 }
 
 .course-link{

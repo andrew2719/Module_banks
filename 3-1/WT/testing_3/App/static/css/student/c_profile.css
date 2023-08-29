@@ -64,6 +64,9 @@ body {
     margin-right: 20px;
     margin-left: 20px;
     border-radius: 10px;
+    align-items: top;
+    justify-content: space-between;
+    
 }
 
 .profile1{
@@ -91,9 +94,17 @@ body {
 }
 .achievements {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    /* border: #000000 1px solid; */
+    width: 600px;
+}
+
+.certificates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .certificate {
     display: flex;
@@ -117,9 +128,7 @@ body {
     align-self: center;
     font-weight: bold;
     border: 2px solid #333;
-    position: absolute;
-    top: 120px;
-    right:45px;
+    
 }
 .course-progress {
     padding: 20px;
