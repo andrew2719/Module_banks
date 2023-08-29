@@ -1,0 +1,1036 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> function
+Rule 2     program -> function program
+Rule 3     function -> INT ID LPAREN RPAREN LBRACE statements RBRACE
+Rule 4     statements -> statement
+Rule 5     statements -> statement statements
+Rule 6     statement -> declaration
+Rule 7     statement -> assignment
+Rule 8     statement -> if_statement
+Rule 9     statement -> while_loop
+Rule 10    statement -> return_statement
+Rule 11    declaration -> INT declaration_list SEMICOLON
+Rule 12    declaration_list -> declaration_item
+Rule 13    declaration_list -> declaration_item COMMA declaration_list
+Rule 14    declaration_item -> ID
+Rule 15    declaration_item -> ID EQUALS expression
+Rule 16    assignment -> ID EQUALS expression SEMICOLON
+Rule 17    if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE
+Rule 18    if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+Rule 19    while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+Rule 20    return_statement -> RETURN expression SEMICOLON
+Rule 21    condition -> expression EQUALITY expression
+Rule 22    condition -> expression NOT_EQUAL expression
+Rule 23    expression -> expression PLUS term
+Rule 24    expression -> expression MINUS term
+Rule 25    expression -> term
+Rule 26    term -> term MULTIPLY factor
+Rule 27    term -> term DIVIDE factor
+Rule 28    term -> term MODULO factor
+Rule 29    term -> factor
+Rule 30    factor -> NUMBER
+Rule 31    factor -> ID
+
+Terminals, with rules where they appear
+
+COMMA                : 13
+DIVIDE               : 27
+ELSE                 : 18
+EQUALITY             : 21
+EQUALS               : 15 16
+ID                   : 3 14 15 16 31
+IF                   : 17 18
+INT                  : 3 11
+LBRACE               : 3 17 18 18 19
+LPAREN               : 3 17 18 19
+MINUS                : 24
+MODULO               : 28
+MULTIPLY             : 26
+NOT_EQUAL            : 22
+NUMBER               : 30
+PLUS                 : 23
+RBRACE               : 3 17 18 18 19
+RETURN               : 20
+RPAREN               : 3 17 18 19
+SEMICOLON            : 11 16 20
+WHILE                : 19
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignment           : 7
+condition            : 17 18 19
+declaration          : 6
+declaration_item     : 12 13
+declaration_list     : 11 13
+expression           : 15 16 20 21 21 22 22 23 24
+factor               : 26 27 28 29
+function             : 1 2
+if_statement         : 8
+program              : 2 0
+return_statement     : 10
+statement            : 4 5
+statements           : 3 5 17 18 18 19
+term                 : 23 24 25 26 27 28
+while_loop           : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . function
+    (2) program -> . function program
+    (3) function -> . INT ID LPAREN RPAREN LBRACE statements RBRACE
+
+    INT             shift and go to state 3
+
+    program                        shift and go to state 1
+    function                       shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> function .
+    (2) program -> function . program
+    (1) program -> . function
+    (2) program -> . function program
+    (3) function -> . INT ID LPAREN RPAREN LBRACE statements RBRACE
+
+    $end            reduce using rule 1 (program -> function .)
+    INT             shift and go to state 3
+
+    function                       shift and go to state 2
+    program                        shift and go to state 4
+
+state 3
+
+    (3) function -> INT . ID LPAREN RPAREN LBRACE statements RBRACE
+
+    ID              shift and go to state 5
+
+
+state 4
+
+    (2) program -> function program .
+
+    $end            reduce using rule 2 (program -> function program .)
+
+
+state 5
+
+    (3) function -> INT ID . LPAREN RPAREN LBRACE statements RBRACE
+
+    LPAREN          shift and go to state 6
+
+
+state 6
+
+    (3) function -> INT ID LPAREN . RPAREN LBRACE statements RBRACE
+
+    RPAREN          shift and go to state 7
+
+
+state 7
+
+    (3) function -> INT ID LPAREN RPAREN . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 8
+
+
+state 8
+
+    (3) function -> INT ID LPAREN RPAREN LBRACE . statements RBRACE
+    (4) statements -> . statement
+    (5) statements -> . statement statements
+    (6) statement -> . declaration
+    (7) statement -> . assignment
+    (8) statement -> . if_statement
+    (9) statement -> . while_loop
+    (10) statement -> . return_statement
+    (11) declaration -> . INT declaration_list SEMICOLON
+    (16) assignment -> . ID EQUALS expression SEMICOLON
+    (17) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (19) while_loop -> . WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+    (20) return_statement -> . RETURN expression SEMICOLON
+
+    INT             shift and go to state 9
+    ID              shift and go to state 10
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+    RETURN          shift and go to state 20
+
+    statements                     shift and go to state 11
+    statement                      shift and go to state 12
+    declaration                    shift and go to state 13
+    assignment                     shift and go to state 14
+    if_statement                   shift and go to state 15
+    while_loop                     shift and go to state 16
+    return_statement               shift and go to state 17
+
+state 9
+
+    (11) declaration -> INT . declaration_list SEMICOLON
+    (12) declaration_list -> . declaration_item
+    (13) declaration_list -> . declaration_item COMMA declaration_list
+    (14) declaration_item -> . ID
+    (15) declaration_item -> . ID EQUALS expression
+
+    ID              shift and go to state 23
+
+    declaration_list               shift and go to state 21
+    declaration_item               shift and go to state 22
+
+state 10
+
+    (16) assignment -> ID . EQUALS expression SEMICOLON
+
+    EQUALS          shift and go to state 24
+
+
+state 11
+
+    (3) function -> INT ID LPAREN RPAREN LBRACE statements . RBRACE
+
+    RBRACE          shift and go to state 25
+
+
+state 12
+
+    (4) statements -> statement .
+    (5) statements -> statement . statements
+    (4) statements -> . statement
+    (5) statements -> . statement statements
+    (6) statement -> . declaration
+    (7) statement -> . assignment
+    (8) statement -> . if_statement
+    (9) statement -> . while_loop
+    (10) statement -> . return_statement
+    (11) declaration -> . INT declaration_list SEMICOLON
+    (16) assignment -> . ID EQUALS expression SEMICOLON
+    (17) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (19) while_loop -> . WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+    (20) return_statement -> . RETURN expression SEMICOLON
+
+    RBRACE          reduce using rule 4 (statements -> statement .)
+    INT             shift and go to state 9
+    ID              shift and go to state 10
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+    RETURN          shift and go to state 20
+
+    statement                      shift and go to state 12
+    statements                     shift and go to state 26
+    declaration                    shift and go to state 13
+    assignment                     shift and go to state 14
+    if_statement                   shift and go to state 15
+    while_loop                     shift and go to state 16
+    return_statement               shift and go to state 17
+
+state 13
+
+    (6) statement -> declaration .
+
+    INT             reduce using rule 6 (statement -> declaration .)
+    ID              reduce using rule 6 (statement -> declaration .)
+    IF              reduce using rule 6 (statement -> declaration .)
+    WHILE           reduce using rule 6 (statement -> declaration .)
+    RETURN          reduce using rule 6 (statement -> declaration .)
+    RBRACE          reduce using rule 6 (statement -> declaration .)
+
+
+state 14
+
+    (7) statement -> assignment .
+
+    INT             reduce using rule 7 (statement -> assignment .)
+    ID              reduce using rule 7 (statement -> assignment .)
+    IF              reduce using rule 7 (statement -> assignment .)
+    WHILE           reduce using rule 7 (statement -> assignment .)
+    RETURN          reduce using rule 7 (statement -> assignment .)
+    RBRACE          reduce using rule 7 (statement -> assignment .)
+
+
+state 15
+
+    (8) statement -> if_statement .
+
+    INT             reduce using rule 8 (statement -> if_statement .)
+    ID              reduce using rule 8 (statement -> if_statement .)
+    IF              reduce using rule 8 (statement -> if_statement .)
+    WHILE           reduce using rule 8 (statement -> if_statement .)
+    RETURN          reduce using rule 8 (statement -> if_statement .)
+    RBRACE          reduce using rule 8 (statement -> if_statement .)
+
+
+state 16
+
+    (9) statement -> while_loop .
+
+    INT             reduce using rule 9 (statement -> while_loop .)
+    ID              reduce using rule 9 (statement -> while_loop .)
+    IF              reduce using rule 9 (statement -> while_loop .)
+    WHILE           reduce using rule 9 (statement -> while_loop .)
+    RETURN          reduce using rule 9 (statement -> while_loop .)
+    RBRACE          reduce using rule 9 (statement -> while_loop .)
+
+
+state 17
+
+    (10) statement -> return_statement .
+
+    INT             reduce using rule 10 (statement -> return_statement .)
+    ID              reduce using rule 10 (statement -> return_statement .)
+    IF              reduce using rule 10 (statement -> return_statement .)
+    WHILE           reduce using rule 10 (statement -> return_statement .)
+    RETURN          reduce using rule 10 (statement -> return_statement .)
+    RBRACE          reduce using rule 10 (statement -> return_statement .)
+
+
+state 18
+
+    (17) if_statement -> IF . LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> IF . LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LPAREN          shift and go to state 27
+
+
+state 19
+
+    (19) while_loop -> WHILE . LPAREN condition RPAREN LBRACE statements RBRACE
+
+    LPAREN          shift and go to state 28
+
+
+state 20
+
+    (20) return_statement -> RETURN . expression SEMICOLON
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    expression                     shift and go to state 29
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 21
+
+    (11) declaration -> INT declaration_list . SEMICOLON
+
+    SEMICOLON       shift and go to state 34
+
+
+state 22
+
+    (12) declaration_list -> declaration_item .
+    (13) declaration_list -> declaration_item . COMMA declaration_list
+
+    SEMICOLON       reduce using rule 12 (declaration_list -> declaration_item .)
+    COMMA           shift and go to state 35
+
+
+state 23
+
+    (14) declaration_item -> ID .
+    (15) declaration_item -> ID . EQUALS expression
+
+    COMMA           reduce using rule 14 (declaration_item -> ID .)
+    SEMICOLON       reduce using rule 14 (declaration_item -> ID .)
+    EQUALS          shift and go to state 36
+
+
+state 24
+
+    (16) assignment -> ID EQUALS . expression SEMICOLON
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    expression                     shift and go to state 37
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 25
+
+    (3) function -> INT ID LPAREN RPAREN LBRACE statements RBRACE .
+
+    INT             reduce using rule 3 (function -> INT ID LPAREN RPAREN LBRACE statements RBRACE .)
+    $end            reduce using rule 3 (function -> INT ID LPAREN RPAREN LBRACE statements RBRACE .)
+
+
+state 26
+
+    (5) statements -> statement statements .
+
+    RBRACE          reduce using rule 5 (statements -> statement statements .)
+
+
+state 27
+
+    (17) if_statement -> IF LPAREN . condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> IF LPAREN . condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (21) condition -> . expression EQUALITY expression
+    (22) condition -> . expression NOT_EQUAL expression
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    condition                      shift and go to state 38
+    expression                     shift and go to state 39
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 28
+
+    (19) while_loop -> WHILE LPAREN . condition RPAREN LBRACE statements RBRACE
+    (21) condition -> . expression EQUALITY expression
+    (22) condition -> . expression NOT_EQUAL expression
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    condition                      shift and go to state 40
+    expression                     shift and go to state 39
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 29
+
+    (20) return_statement -> RETURN expression . SEMICOLON
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    SEMICOLON       shift and go to state 41
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 30
+
+    (25) expression -> term .
+    (26) term -> term . MULTIPLY factor
+    (27) term -> term . DIVIDE factor
+    (28) term -> term . MODULO factor
+
+    SEMICOLON       reduce using rule 25 (expression -> term .)
+    PLUS            reduce using rule 25 (expression -> term .)
+    MINUS           reduce using rule 25 (expression -> term .)
+    EQUALITY        reduce using rule 25 (expression -> term .)
+    NOT_EQUAL       reduce using rule 25 (expression -> term .)
+    COMMA           reduce using rule 25 (expression -> term .)
+    RPAREN          reduce using rule 25 (expression -> term .)
+    MULTIPLY        shift and go to state 44
+    DIVIDE          shift and go to state 45
+    MODULO          shift and go to state 46
+
+
+state 31
+
+    (29) term -> factor .
+
+    MULTIPLY        reduce using rule 29 (term -> factor .)
+    DIVIDE          reduce using rule 29 (term -> factor .)
+    MODULO          reduce using rule 29 (term -> factor .)
+    SEMICOLON       reduce using rule 29 (term -> factor .)
+    PLUS            reduce using rule 29 (term -> factor .)
+    MINUS           reduce using rule 29 (term -> factor .)
+    EQUALITY        reduce using rule 29 (term -> factor .)
+    NOT_EQUAL       reduce using rule 29 (term -> factor .)
+    COMMA           reduce using rule 29 (term -> factor .)
+    RPAREN          reduce using rule 29 (term -> factor .)
+
+
+state 32
+
+    (30) factor -> NUMBER .
+
+    MULTIPLY        reduce using rule 30 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 30 (factor -> NUMBER .)
+    MODULO          reduce using rule 30 (factor -> NUMBER .)
+    SEMICOLON       reduce using rule 30 (factor -> NUMBER .)
+    PLUS            reduce using rule 30 (factor -> NUMBER .)
+    MINUS           reduce using rule 30 (factor -> NUMBER .)
+    EQUALITY        reduce using rule 30 (factor -> NUMBER .)
+    NOT_EQUAL       reduce using rule 30 (factor -> NUMBER .)
+    COMMA           reduce using rule 30 (factor -> NUMBER .)
+    RPAREN          reduce using rule 30 (factor -> NUMBER .)
+
+
+state 33
+
+    (31) factor -> ID .
+
+    MULTIPLY        reduce using rule 31 (factor -> ID .)
+    DIVIDE          reduce using rule 31 (factor -> ID .)
+    MODULO          reduce using rule 31 (factor -> ID .)
+    SEMICOLON       reduce using rule 31 (factor -> ID .)
+    PLUS            reduce using rule 31 (factor -> ID .)
+    MINUS           reduce using rule 31 (factor -> ID .)
+    EQUALITY        reduce using rule 31 (factor -> ID .)
+    NOT_EQUAL       reduce using rule 31 (factor -> ID .)
+    COMMA           reduce using rule 31 (factor -> ID .)
+    RPAREN          reduce using rule 31 (factor -> ID .)
+
+
+state 34
+
+    (11) declaration -> INT declaration_list SEMICOLON .
+
+    INT             reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+    ID              reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+    IF              reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+    WHILE           reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+    RETURN          reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+    RBRACE          reduce using rule 11 (declaration -> INT declaration_list SEMICOLON .)
+
+
+state 35
+
+    (13) declaration_list -> declaration_item COMMA . declaration_list
+    (12) declaration_list -> . declaration_item
+    (13) declaration_list -> . declaration_item COMMA declaration_list
+    (14) declaration_item -> . ID
+    (15) declaration_item -> . ID EQUALS expression
+
+    ID              shift and go to state 23
+
+    declaration_item               shift and go to state 22
+    declaration_list               shift and go to state 47
+
+state 36
+
+    (15) declaration_item -> ID EQUALS . expression
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    expression                     shift and go to state 48
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 37
+
+    (16) assignment -> ID EQUALS expression . SEMICOLON
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    SEMICOLON       shift and go to state 49
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 38
+
+    (17) if_statement -> IF LPAREN condition . RPAREN LBRACE statements RBRACE
+    (18) if_statement -> IF LPAREN condition . RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    RPAREN          shift and go to state 50
+
+
+state 39
+
+    (21) condition -> expression . EQUALITY expression
+    (22) condition -> expression . NOT_EQUAL expression
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    EQUALITY        shift and go to state 51
+    NOT_EQUAL       shift and go to state 52
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 40
+
+    (19) while_loop -> WHILE LPAREN condition . RPAREN LBRACE statements RBRACE
+
+    RPAREN          shift and go to state 53
+
+
+state 41
+
+    (20) return_statement -> RETURN expression SEMICOLON .
+
+    INT             reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+    ID              reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+    IF              reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+    WHILE           reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+    RETURN          reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+    RBRACE          reduce using rule 20 (return_statement -> RETURN expression SEMICOLON .)
+
+
+state 42
+
+    (23) expression -> expression PLUS . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    term                           shift and go to state 54
+    factor                         shift and go to state 31
+
+state 43
+
+    (24) expression -> expression MINUS . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    term                           shift and go to state 55
+    factor                         shift and go to state 31
+
+state 44
+
+    (26) term -> term MULTIPLY . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    factor                         shift and go to state 56
+
+state 45
+
+    (27) term -> term DIVIDE . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    factor                         shift and go to state 57
+
+state 46
+
+    (28) term -> term MODULO . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    factor                         shift and go to state 58
+
+state 47
+
+    (13) declaration_list -> declaration_item COMMA declaration_list .
+
+    SEMICOLON       reduce using rule 13 (declaration_list -> declaration_item COMMA declaration_list .)
+
+
+state 48
+
+    (15) declaration_item -> ID EQUALS expression .
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    COMMA           reduce using rule 15 (declaration_item -> ID EQUALS expression .)
+    SEMICOLON       reduce using rule 15 (declaration_item -> ID EQUALS expression .)
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 49
+
+    (16) assignment -> ID EQUALS expression SEMICOLON .
+
+    INT             reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+    ID              reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+    IF              reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+    WHILE           reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+    RETURN          reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+    RBRACE          reduce using rule 16 (assignment -> ID EQUALS expression SEMICOLON .)
+
+
+state 50
+
+    (17) if_statement -> IF LPAREN condition RPAREN . LBRACE statements RBRACE
+    (18) if_statement -> IF LPAREN condition RPAREN . LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 59
+
+
+state 51
+
+    (21) condition -> expression EQUALITY . expression
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    expression                     shift and go to state 60
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 52
+
+    (22) condition -> expression NOT_EQUAL . expression
+    (23) expression -> . expression PLUS term
+    (24) expression -> . expression MINUS term
+    (25) expression -> . term
+    (26) term -> . term MULTIPLY factor
+    (27) term -> . term DIVIDE factor
+    (28) term -> . term MODULO factor
+    (29) term -> . factor
+    (30) factor -> . NUMBER
+    (31) factor -> . ID
+
+    NUMBER          shift and go to state 32
+    ID              shift and go to state 33
+
+    expression                     shift and go to state 61
+    term                           shift and go to state 30
+    factor                         shift and go to state 31
+
+state 53
+
+    (19) while_loop -> WHILE LPAREN condition RPAREN . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 62
+
+
+state 54
+
+    (23) expression -> expression PLUS term .
+    (26) term -> term . MULTIPLY factor
+    (27) term -> term . DIVIDE factor
+    (28) term -> term . MODULO factor
+
+    SEMICOLON       reduce using rule 23 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 23 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 23 (expression -> expression PLUS term .)
+    EQUALITY        reduce using rule 23 (expression -> expression PLUS term .)
+    NOT_EQUAL       reduce using rule 23 (expression -> expression PLUS term .)
+    COMMA           reduce using rule 23 (expression -> expression PLUS term .)
+    RPAREN          reduce using rule 23 (expression -> expression PLUS term .)
+    MULTIPLY        shift and go to state 44
+    DIVIDE          shift and go to state 45
+    MODULO          shift and go to state 46
+
+
+state 55
+
+    (24) expression -> expression MINUS term .
+    (26) term -> term . MULTIPLY factor
+    (27) term -> term . DIVIDE factor
+    (28) term -> term . MODULO factor
+
+    SEMICOLON       reduce using rule 24 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 24 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 24 (expression -> expression MINUS term .)
+    EQUALITY        reduce using rule 24 (expression -> expression MINUS term .)
+    NOT_EQUAL       reduce using rule 24 (expression -> expression MINUS term .)
+    COMMA           reduce using rule 24 (expression -> expression MINUS term .)
+    RPAREN          reduce using rule 24 (expression -> expression MINUS term .)
+    MULTIPLY        shift and go to state 44
+    DIVIDE          shift and go to state 45
+    MODULO          shift and go to state 46
+
+
+state 56
+
+    (26) term -> term MULTIPLY factor .
+
+    MULTIPLY        reduce using rule 26 (term -> term MULTIPLY factor .)
+    DIVIDE          reduce using rule 26 (term -> term MULTIPLY factor .)
+    MODULO          reduce using rule 26 (term -> term MULTIPLY factor .)
+    SEMICOLON       reduce using rule 26 (term -> term MULTIPLY factor .)
+    PLUS            reduce using rule 26 (term -> term MULTIPLY factor .)
+    MINUS           reduce using rule 26 (term -> term MULTIPLY factor .)
+    EQUALITY        reduce using rule 26 (term -> term MULTIPLY factor .)
+    NOT_EQUAL       reduce using rule 26 (term -> term MULTIPLY factor .)
+    COMMA           reduce using rule 26 (term -> term MULTIPLY factor .)
+    RPAREN          reduce using rule 26 (term -> term MULTIPLY factor .)
+
+
+state 57
+
+    (27) term -> term DIVIDE factor .
+
+    MULTIPLY        reduce using rule 27 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 27 (term -> term DIVIDE factor .)
+    MODULO          reduce using rule 27 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 27 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 27 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 27 (term -> term DIVIDE factor .)
+    EQUALITY        reduce using rule 27 (term -> term DIVIDE factor .)
+    NOT_EQUAL       reduce using rule 27 (term -> term DIVIDE factor .)
+    COMMA           reduce using rule 27 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 27 (term -> term DIVIDE factor .)
+
+
+state 58
+
+    (28) term -> term MODULO factor .
+
+    MULTIPLY        reduce using rule 28 (term -> term MODULO factor .)
+    DIVIDE          reduce using rule 28 (term -> term MODULO factor .)
+    MODULO          reduce using rule 28 (term -> term MODULO factor .)
+    SEMICOLON       reduce using rule 28 (term -> term MODULO factor .)
+    PLUS            reduce using rule 28 (term -> term MODULO factor .)
+    MINUS           reduce using rule 28 (term -> term MODULO factor .)
+    EQUALITY        reduce using rule 28 (term -> term MODULO factor .)
+    NOT_EQUAL       reduce using rule 28 (term -> term MODULO factor .)
+    COMMA           reduce using rule 28 (term -> term MODULO factor .)
+    RPAREN          reduce using rule 28 (term -> term MODULO factor .)
+
+
+state 59
+
+    (17) if_statement -> IF LPAREN condition RPAREN LBRACE . statements RBRACE
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE . statements RBRACE ELSE LBRACE statements RBRACE
+    (4) statements -> . statement
+    (5) statements -> . statement statements
+    (6) statement -> . declaration
+    (7) statement -> . assignment
+    (8) statement -> . if_statement
+    (9) statement -> . while_loop
+    (10) statement -> . return_statement
+    (11) declaration -> . INT declaration_list SEMICOLON
+    (16) assignment -> . ID EQUALS expression SEMICOLON
+    (17) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (19) while_loop -> . WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+    (20) return_statement -> . RETURN expression SEMICOLON
+
+    INT             shift and go to state 9
+    ID              shift and go to state 10
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+    RETURN          shift and go to state 20
+
+    statements                     shift and go to state 63
+    statement                      shift and go to state 12
+    declaration                    shift and go to state 13
+    assignment                     shift and go to state 14
+    if_statement                   shift and go to state 15
+    while_loop                     shift and go to state 16
+    return_statement               shift and go to state 17
+
+state 60
+
+    (21) condition -> expression EQUALITY expression .
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    RPAREN          reduce using rule 21 (condition -> expression EQUALITY expression .)
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 61
+
+    (22) condition -> expression NOT_EQUAL expression .
+    (23) expression -> expression . PLUS term
+    (24) expression -> expression . MINUS term
+
+    RPAREN          reduce using rule 22 (condition -> expression NOT_EQUAL expression .)
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 43
+
+
+state 62
+
+    (19) while_loop -> WHILE LPAREN condition RPAREN LBRACE . statements RBRACE
+    (4) statements -> . statement
+    (5) statements -> . statement statements
+    (6) statement -> . declaration
+    (7) statement -> . assignment
+    (8) statement -> . if_statement
+    (9) statement -> . while_loop
+    (10) statement -> . return_statement
+    (11) declaration -> . INT declaration_list SEMICOLON
+    (16) assignment -> . ID EQUALS expression SEMICOLON
+    (17) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (19) while_loop -> . WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+    (20) return_statement -> . RETURN expression SEMICOLON
+
+    INT             shift and go to state 9
+    ID              shift and go to state 10
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+    RETURN          shift and go to state 20
+
+    statements                     shift and go to state 64
+    statement                      shift and go to state 12
+    declaration                    shift and go to state 13
+    assignment                     shift and go to state 14
+    if_statement                   shift and go to state 15
+    while_loop                     shift and go to state 16
+    return_statement               shift and go to state 17
+
+state 63
+
+    (17) if_statement -> IF LPAREN condition RPAREN LBRACE statements . RBRACE
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements . RBRACE ELSE LBRACE statements RBRACE
+
+    RBRACE          shift and go to state 65
+
+
+state 64
+
+    (19) while_loop -> WHILE LPAREN condition RPAREN LBRACE statements . RBRACE
+
+    RBRACE          shift and go to state 66
+
+
+state 65
+
+    (17) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE . ELSE LBRACE statements RBRACE
+
+    INT             reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    ID              reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    IF              reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    WHILE           reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    RETURN          reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 17 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE .)
+    ELSE            shift and go to state 67
+
+
+state 66
+
+    (19) while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .
+
+    INT             reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+    ID              reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+    IF              reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+    WHILE           reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+    RETURN          reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 19 (while_loop -> WHILE LPAREN condition RPAREN LBRACE statements RBRACE .)
+
+
+state 67
+
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE . LBRACE statements RBRACE
+
+    LBRACE          shift and go to state 68
+
+
+state 68
+
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE . statements RBRACE
+    (4) statements -> . statement
+    (5) statements -> . statement statements
+    (6) statement -> . declaration
+    (7) statement -> . assignment
+    (8) statement -> . if_statement
+    (9) statement -> . while_loop
+    (10) statement -> . return_statement
+    (11) declaration -> . INT declaration_list SEMICOLON
+    (16) assignment -> . ID EQUALS expression SEMICOLON
+    (17) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE
+    (18) if_statement -> . IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE
+    (19) while_loop -> . WHILE LPAREN condition RPAREN LBRACE statements RBRACE
+    (20) return_statement -> . RETURN expression SEMICOLON
+
+    INT             shift and go to state 9
+    ID              shift and go to state 10
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+    RETURN          shift and go to state 20
+
+    statements                     shift and go to state 69
+    statement                      shift and go to state 12
+    declaration                    shift and go to state 13
+    assignment                     shift and go to state 14
+    if_statement                   shift and go to state 15
+    while_loop                     shift and go to state 16
+    return_statement               shift and go to state 17
+
+state 69
+
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements . RBRACE
+
+    RBRACE          shift and go to state 70
+
+
+state 70
+
+    (18) if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .
+
+    INT             reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    ID              reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    IF              reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    WHILE           reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    RETURN          reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+    RBRACE          reduce using rule 18 (if_statement -> IF LPAREN condition RPAREN LBRACE statements RBRACE ELSE LBRACE statements RBRACE .)
+
