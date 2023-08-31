@@ -91,16 +91,68 @@ class MemoryManager:
         else:
             return None
 
+    # def deallocate(self, start, size):
+    #     new_block = Block(start, size)
+    #     x = self.root
+    #     while x:
+    #         if new_block.start < x.start:
+    #             x = x.left
+    #         else:
+    #             x = x.right
+    #     self.splay(x)
+    #     # Insert and possibly merge adjacent blocks here
+
     def deallocate(self, start, size):
         new_block = Block(start, size)
         x = self.root
+        prev_block = None
+        next_block = None
+
+        # Find the position to insert the new block and identify adjacent blocks
         while x:
-            if new_block.start < x.start:
+            if new_block.start + new_block.size <= x.start:
+                next_block = x
                 x = x.left
-            else:
+            elif new_block.start >= x.start + x.size:
+                prev_block = x
                 x = x.right
-        self.splay(x)
-        # Insert and possibly merge adjacent blocks here
+            else:
+                # Overlapping blocks, which should not happen in a well-behaved memory manager
+                print("Error: Overlapping blocks")
+                return
+
+        # Merge with previous block if adjacent
+        if prev_block and prev_block.start + prev_block.size == new_block.start:
+            prev_block.size += new_block.size
+            new_block = prev_block
+
+        # Merge with next block if adjacent
+        if next_block and new_block.start + new_block.size == next_block.start:
+            new_block.size += next_block.size
+            if next_block.left:
+                next_block.left.parent = next_block.parent
+            if next_block.right:
+                next_block.right.parent = next_block.parent
+            if next_block == next_block.parent.left:
+                next_block.parent.left = next_block.left
+            else:
+                next_block.parent.right = next_block.left
+
+        # Insert the new block if it was not merged with the previous block
+        if new_block != prev_block:
+            new_block.parent = prev_block.parent
+            if not prev_block.parent:
+                self.root = new_block
+            elif prev_block == prev_block.parent.left:
+                prev_block.parent.left = new_block
+            else:
+                prev_block.parent.right = new_block
+            new_block.left = prev_block
+            prev_block.parent = new_block
+
+        # Splay the newly inserted or merged block to the root
+        self.splay(new_block)
+
 
         
 
