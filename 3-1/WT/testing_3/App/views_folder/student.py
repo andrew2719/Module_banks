@@ -152,3 +152,7 @@ def unenroll_course(request):
             return JsonResponse({"success":True})
         else:
             return JsonResponse({"success":False})
+        
+
+def course_page(request):
+    return render(request, "student/course_page.html")

@@ -16,6 +16,7 @@ urlpatterns = [
     path("get_all_courses/", student.get_all_courses, name="get_all_courses"), #api
     path('get_course/', student.get_course, name='get_course'), #api
     path('courses/<int:course_code>', student.course, name='course_page'), #page
+    path('course_page/', student.course_page, name='course_page'), #page
 
     # instructor
     path('instructor/', instructor.instructor, name='instructor'),#page
