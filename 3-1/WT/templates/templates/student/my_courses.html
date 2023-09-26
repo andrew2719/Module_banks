@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - Online Learning Platform</title>
+    <link rel="stylesheet" href="#">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1 class="logo">BATCH-17</h1>
+
+        <div class="menu">
+            <a href="home.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="#">Reminders</a>
+            <a href="#">My Courses</a>
+            <input class="input-box" type="text" id="searchInput" style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
+            <span class="search-icon" onclick="searchCourses()">🔍</span>
+        </div>
+
+        <div class="user">
+            <a href="profile.html" class="profile">👤 Profile</a>
+            <a href="logout.html" class="logout">Logout</a>
+        </div>
+    </div>
+    <div class="my-courses-container">
+        <div class="course-card">
+            <h3>Web Development</h3>
+            <p>Instructor: John Doe</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 70%;"></div>
+            </div>
+            <p>Progress: 70%</p>
+        </div>
+        <div class="course-card">
+            <h3>Machine Learning</h3>
+            <p>Instructor: Jane Smith</p>
+            <div class="progress-bar">
+                <div class="progress" style="width: 40%;"></div>
+            </div>
+            <p>Progress: 40%</p>
+        </div>
+    </div>
+</body>
+
+</html>

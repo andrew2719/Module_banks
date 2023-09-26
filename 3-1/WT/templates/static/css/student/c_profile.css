@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4e1d2;
+    font-family: 'Poppins', sans-serif;
+}
+.logo{
+    margin-left: 20px;
+}
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 98%;
+    height: 50px;
+    left: 0px;
+    text-align:center;
+    background-color: rgba(255, 255, 255, 0.7);
+    overflow: hidden;
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar a, .navbar input,.navbar .search-icon{
+    display: inline-block;
+    color: #004974;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar .input-box{
+    margin: 5px;
+
+}
+.navbar a:hover {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.navbar .search-icon {
+    cursor: pointer;
+}
+.navbar input {
+
+    border: none;
+    
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.profile{
+    margin-right: 10px;
+
+
+}.profile-container {
+    margin-top: 100px;
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
+    align-items: top;
+    justify-content: space-between;
+    
+}
+
+.profile1{
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgb(240, 12, 12); */
+    width: 300px;
+    align-items: center;
+    height: 320px;
+}
+
+.details{
+    text-align: center;
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+.profile-details {
+    margin-left: 20px;
+    flex: 1;
+}
+.achievements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    /* border: #000000 1px solid; */
+    width: 600px;
+}
+
+.certificates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.certificate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+.certificate img {
+    width: 100px;
+    height: 100px;
+}
+.see-more {
+    color: #333;
+    text-decoration: none;
+    margin-left: 10px;
+}
+.profile-badge {
+    background-color: #f4f4f4;
+    padding: 10px 20px;
+    border-radius: 5px;
+    align-self: center;
+    font-weight: bold;
+    border: 2px solid #333;
+    
+}
+.course-progress {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 10px;
+}
+.course {
+    margin-bottom: 20px;
+}
+.course progress {
+    width: 80%;
+}

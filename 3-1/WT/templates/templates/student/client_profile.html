@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Online Learning Platform</title>
+    <link rel="stylesheet" href="#">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1 class="logo">BATCH-17</h1>
+
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Courses</a>
+            <a href="#">Reminders</a>
+            <a href="#">My Courses</a>
+            <input class="input-box" type="text" id="searchInput"
+                style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
+            <span class="search-icon" onclick="searchCourses()">🔍</span>
+        </div>
+
+        <div class="user">
+            <a href="#" class="profile">👤 Profile</a>
+            <a href="#" class="logout">Logout</a>
+        </div>
+    </div>
+    <div class="profile-container">
+        <div class="profile1">
+            <div class="profile-pic">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture">
+            </div>
+            <div class="details">
+                <h2>{{user.name}}</h2>
+                <p>Email: {{user.email}}</p>
+                <p>Joined: January 2023</p>
+            </div>
+        </div>
+        <div class="achievements">
+            <h3>Achievements</h3>
+            <div class="certificates">
+                <div class="certificate">
+                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                    <p>Web Development</p>
+                </div>
+                <div class="certificate">
+                    <img src="https://via.placeholder.com/100" alt="Certificate Logo">
+                    <p>Machine Learning</p>
+                </div>
+                <a href="#" class="see-more">See More</a>
+            </div>
+        </div>
+        <div class="profile-badge">
+            <p>Elite Learner</p>
+        </div>
+    </div>
+    <div class="course-progress">
+        <h2>Your Courses</h2>
+        <!-- Course details loop -->
+        <div class="course">
+            <p>#</p>
+            <progress value="#" max="100"></progress>
+            <span>#</span>
+        </div>
+    </div>
+
+    <script>
+        function searchCourses() {
+            // Add your search functionality here
+        }
+    </script>
+</body>
+
+</html>

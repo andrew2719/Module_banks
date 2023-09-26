@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - Online Learning Platform</title>
+    <link rel="stylesheet" href="#">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1 class="logo">BATCH-17</h1>
+
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">Courses</a>
+            <a href="#">Reminders</a>
+            <a href="#">My Courses</a>
+            <input class="input-box" type="text" id="searchInput"
+                style="color: black; margin-top:7px; border:2px solid black;" placeholder="Search courses...">
+            <span class="search-icon" onclick="fetch_course()">🔍</span>
+        </div>
+
+        <div class="user">
+            <a href="#" class="profile">👤 Profile</a>
+            <a href="#" class="logout">Logout</a>
+        </div>
+    </div>
+    <div class="course-details-container">
+        <div class="course-logo">
+            <img src="#" alt="Course Logo">
+        </div>
+        <div class="course-info">
+            <h2>#</h2>
+            <p>Duration: # hrs</p>
+            <p>Total Lectures: 30</p>
+            <p>Assignments: #</p>
+            <p>Course Outcome: #</p>
+        </div>
+        <div class="instructor-info">
+            <img src="https://via.placeholder.com/100" alt="Instructor Image" class="instructor-img">
+            <div>
+                <p>Instructor:#</p>
+                <p>Qualifications: #</p>
+            </div>
+        </div>
+    </div>
+    <div class="payment-section">
+        <p>Course Fee: $#</p>
+        <button id="enrollButton" onclick="enroll()">Enroll Now</button>
+    </div>
+
+    <script type="text/javascript">
+
+        const courseCode = "#";
+        console.log(courseCode);
+
+        function enroll() {
+            // Your enrollment logic here
+        }
+
+        function check_enrolled() {
+            // Your enrollment check logic here
+        }
+
+        function addUnenrollButton() {
+            // Your code to add Unenroll button here
+        }
+
+        function unenroll() {
+            // Your unenrollment logic here
+        }
+
+        check_enrolled();
+
+    </script>
+</body>
+
+</html>
