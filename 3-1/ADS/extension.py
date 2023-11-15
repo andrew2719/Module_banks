@@ -1,15 +1,11 @@
-class Block:
-    def __init__(self, start, size):
-        self.start = start
-        self.size = size
-        self.left = None
-        self.right = None
-        self.parent = None
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = self.right = self.parent = None
 
-class MemoryManager:
-    def __init__(self, total_size):
-        self.root = Block(0, total_size)
-        self.rotation_count = {'Zig': 0, 'Zag': 0, 'Zig-Zig': 0, 'Zag-Zag': 0, 'Zig-Zag': 0, 'Zag-Zig': 0}
+class SplayTree:
+    def __init__(self):
+        self.root = None
 
     def right_rotate(self, x):
         y = x.left
@@ -17,7 +13,7 @@ class MemoryManager:
         if y.right:
             y.right.parent = x
         y.parent = x.parent
-        if x.parent is None:
+        if not x.parent:
             self.root = y
         elif x == x.parent.right:
             x.parent.right = y
@@ -32,7 +28,7 @@ class MemoryManager:
         if y.left:
             y.left.parent = x
         y.parent = x.parent
-        if x.parent is None:
+        if not x.parent:
             self.root = y
         elif x == x.parent.left:
             x.parent.left = y
@@ -43,126 +39,127 @@ class MemoryManager:
 
     def splay(self, x):
         while x.parent:
-            if x.parent.parent is None:
+            if not x.parent.parent:
                 if x == x.parent.left:
                     self.right_rotate(x.parent)
-                    self.rotation_count['Zig'] += 1
                 else:
                     self.left_rotate(x.parent)
-                    self.rotation_count['Zag'] += 1
             elif x == x.parent.left and x.parent == x.parent.parent.left:
                 self.right_rotate(x.parent.parent)
                 self.right_rotate(x.parent)
-                self.rotation_count['Zig-Zig'] += 1
             elif x == x.parent.right and x.parent == x.parent.parent.right:
                 self.left_rotate(x.parent.parent)
                 self.left_rotate(x.parent)
-                self.rotation_count['Zag-Zag'] += 1
             elif x == x.parent.right and x.parent == x.parent.parent.left:
                 self.left_rotate(x.parent)
                 self.right_rotate(x.parent)
-                self.rotation_count['Zig-Zag'] += 1
             else:
                 self.right_rotate(x.parent)
                 self.left_rotate(x.parent)
-                self.rotation_count['Zag-Zig'] += 1
 
-    def allocate(self, size):
+    def insert(self, key):
+        node = Node(key)
+        y = None
         x = self.root
-        best_fit = None
         while x:
-            if x.size >= size:
-                best_fit = x
+            y = x
+            if node.key < x.key:
                 x = x.left
             else:
                 x = x.right
-        if best_fit:
-            self.splay(best_fit)
-            remaining_size = best_fit.size - size
-            if remaining_size > 0:
-                new_block = Block(best_fit.start + size, remaining_size)
-                new_block.left = best_fit.left
-                if new_block.left:
-                    new_block.left.parent = new_block
-                best_fit.left = new_block
-                new_block.parent = best_fit
-                best_fit.size = size
-            return best_fit.start
+
+        node.parent = y
+        if not y:
+            self.root = node
+        elif node.key < y.key:
+            y.left = node
         else:
-            return None
+            y.right = node
 
-    # def deallocate(self, start, size):
-    #     new_block = Block(start, size)
-    #     x = self.root
-    #     while x:
-    #         if new_block.start < x.start:
-    #             x = x.left
-    #         else:
-    #             x = x.right
-    #     self.splay(x)
-    #     # Insert and possibly merge adjacent blocks here
+        self.splay(node)
+        return node
 
-    def deallocate(self, start, size):
-        new_block = Block(start, size)
-        x = self.root
-        prev_block = None
-        next_block = None
-
-        # Find the position to insert the new block and identify adjacent blocks
-        while x:
-            if new_block.start + new_block.size <= x.start:
-                next_block = x
-                x = x.left
-            elif new_block.start >= x.start + x.size:
-                prev_block = x
-                x = x.right
+    def find(self, key):
+        z = self.root
+        while z:
+            if z.key < key:
+                z = z.right
+            elif key < z.key:
+                z = z.left
             else:
-                # Overlapping blocks, which should not happen in a well-behaved memory manager
-                print("Error: Overlapping blocks")
-                return
+                self.splay(z)
+                return z
+        return None
 
-        # Merge with previous block if adjacent
-        if prev_block and prev_block.start + prev_block.size == new_block.start:
-            prev_block.size += new_block.size
-            new_block = prev_block
+    def remove(self, node):
+        self.splay(node)
+        if not node.left:
+            self.replace(node, node.right)
+        elif not node.right:
+            self.replace(node, node.left)
+        else:
+            y = node.left
+            while y.right:
+                y = y.right
+            if y.parent != node:
+                self.replace(y, y.left)
+                y.left = node.left
+                y.left.parent = y
+            self.replace(node, y)
+            y.right = node.right
+            y.right.parent = y
 
-        # Merge with next block if adjacent
-        if next_block and new_block.start + new_block.size == next_block.start:
-            new_block.size += next_block.size
-            if next_block.left:
-                next_block.left.parent = next_block.parent
-            if next_block.right:
-                next_block.right.parent = next_block.parent
-            if next_block == next_block.parent.left:
-                next_block.parent.left = next_block.left
+    def replace(self, old, new):
+        if not old.parent:
+            self.root = new
+        elif old == old.parent.left:
+            old.parent.left = new
+        else:
+            old.parent.right = new
+        if new:
+            new.parent = old.parent
+
+class Cache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.current_size = 0
+        self.tree = SplayTree()
+
+    def access(self, key):
+        node = self.tree.find(key)
+        if not node:
+            if self.current_size < self.capacity:
+                self.current_size += 1
             else:
-                next_block.parent.right = next_block.left
+                # Evict the least recently accessed item
+                self.evict()
+            self.tree.insert(key)
+        # if it's already in the tree, splay will move it to the root
 
-        # Insert the new block if it was not merged with the previous block
-        if new_block != prev_block:
-            new_block.parent = prev_block.parent
-            if not prev_block.parent:
-                self.root = new_block
-            elif prev_block == prev_block.parent.left:
-                prev_block.parent.left = new_block
-            else:
-                prev_block.parent.right = new_block
-            new_block.left = prev_block
-            prev_block.parent = new_block
+    def evict(self):
+        if not self.tree.root:
+            return
 
-        # Splay the newly inserted or merged block to the root
-        self.splay(new_block)
+        # the leftmost leaf is one of the least accessed items
+        node = self.tree.root
+        while node.left:
+            node = node.left
+        self.tree.remove(node)
 
+    def display(self):
+        self._print_tree(self.tree.root)
 
-        
+    def _print_tree(self, node, indent="", position="root"):
+        if node:
+            print(indent, node.key, position)
+            if node.left or node.right:
+                indent += "  "
+                self._print_tree(node.left, indent, "L")
+                self._print_tree(node.right, indent, "R")
 
-    def print_rotation_count(self):
-        for rotation_type, count in self.rotation_count.items():
-            print(f"{rotation_type} rotations: {count}")
-
-# Example usage
-mem_manager = MemoryManager(1000)
-print("Allocated at:", mem_manager.allocate(200))
-print("Allocated at:", mem_manager.allocate(300))
-print("Allocated at:", mem_manager.allocate(100))
-mem_manager.print_rotation_count()
+cache = Cache(3)
+cache.access(1)
+cache.access(2)
+cache.access(3)
+cache.access(4)  # this will evict 1
+cache.display()  # should show 4 at the root and one of 2 or 3 as the deepest leaf (least recently accessed)

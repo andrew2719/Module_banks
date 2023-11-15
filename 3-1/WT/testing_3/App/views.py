@@ -5,6 +5,7 @@ from Users.models import CustomUser, Student, Instructor
 from django.contrib.auth.decorators import login_required,user_passes_test
 from .models import Courses, Mycourses
 from django.http import JsonResponse
+from django.contrib import messages
 
 
 def login_request(request):
@@ -16,6 +17,7 @@ def login_request(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, "Login Success")
             print("Login Success")
             if user.role == "student":
                 return redirect("home")
@@ -23,6 +25,8 @@ def login_request(request):
                 return redirect("instructor")
                 
         else:
+            messages.error(request, "Login Failed")
+            
             print("Login Failed")
 
     return render(request, "login.html")
@@ -49,9 +53,11 @@ def register(request):
             instructor.save()
                 
         if user is not None and (role == "student" or role == "instructor"):
+            messages.success(request, "User Created Successfully")
             print("User Created")
             return redirect("login")
         else:
+            messages.error(request, "User Not Created")
             print("User Not Created")
 
     

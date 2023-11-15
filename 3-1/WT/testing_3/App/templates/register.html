@@ -73,8 +73,14 @@
   
         // Password validation
         const password = form["password"].value;
-        if (password.length < 6) {  // Check for minimum length
-          alert("Password must be at least 6 characters long.");
+        // if (password.length < 6) {  // Check for minimum length
+        //   alert("Password must be at least 6 characters long.");
+        //   return;
+        // }
+        // password should have at least one uppercase letter, one lowercase letter, one number, and one special character
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/;
+        if (!passwordPattern.test(password)) {
+          alert("Password must have at least one uppercase letter, one lowercase letter, one number, and one special character.");
           return;
         }
   
