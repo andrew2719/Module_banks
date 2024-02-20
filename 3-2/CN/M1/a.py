@@ -3,6 +3,42 @@ import random
 import time
 import logging
 
+
+MAC_NOT_FOUND_LEVEL = 25
+logging.addLevelName(MAC_NOT_FOUND_LEVEL, 'MAC_NOT_FOUND')
+
+def mac_not_found(self, message, *args, **kws):
+    if self.isEnabledFor(MAC_NOT_FOUND_LEVEL):
+        self._log(MAC_NOT_FOUND_LEVEL, message, args, **kws)
+
+logging.Logger.mac_not_found = mac_not_found
+
+# Setup logging with color
+logging.basicConfig(level=logging.INFO, format='%(message)s')
+logger = logging.getLogger()
+
+class ColoredFormatter(logging.Formatter):
+    RED = '\033[91m'
+    ORANGE = '\033[93m'
+    BLUE = '\033[94m'
+    RESET = '\033[0m'
+
+    FORMATS = {
+        logging.INFO: BLUE + '%(message)s' + RESET,
+        logging.ERROR: RED + '%(message)s' + RESET,
+        MAC_NOT_FOUND_LEVEL: ORANGE + '%(message)s' + RESET
+    }
+
+    def format(self, record):
+        log_fmt = self.FORMATS.get(record.levelno, '%(message)s')
+        formatter = logging.Formatter(log_fmt, "%Y-%m-%d %H:%M:%S")
+        return formatter.format(record)
+
+handler = logging.StreamHandler()
+handler.setFormatter(ColoredFormatter())
+logger.handlers = [handler]
+
+
 class Node(threading.Thread):
     def __init__(self, ip, mac, network):
         super().__init__()
@@ -56,21 +92,21 @@ class Switch:
     def send_message(self, src_ip, dst_ip, data):
         with self.transmit_lock:
             if self.collision_detected:
-                print(f"Collision detected for message from {src_ip}. Backing off...")
-                time.sleep(random.uniform(1, 2))  # Random backoff
+                logger.error(f"Collision detected for message from {src_ip}. Backing off...")
+                time.sleep(random.uniform(1, 2))
                 self.collision_detected = False
                 return
 
-            if random.random() < 0.3:  # 30% chance of another node transmitting
+            if random.random() < 0.3:
                 self.collision_detected = True
 
             mac = self.arp_table.get_mac(dst_ip)
             if not mac:
-                print(f"MAC address for IP {dst_ip} not found, initiating discovery...")
+                logger.mac_not_found(f"MAC address for IP {dst_ip} not found, initiating discovery...")
                 self.discover_mac(dst_ip)
             else:
-                print(f"Found MAC: {mac} for IP: {dst_ip}")
-                print(f"Sending message from {src_ip} to {dst_ip}: {data}")
+                logger.info(f"Found MAC: {mac} for IP: {dst_ip}")
+                logger.info(f"Sending message from {src_ip} to {dst_ip}: {data}")
             self.arp_table.print_table()
 
 class Network:
@@ -97,7 +133,7 @@ for node in nodes:
     node.start()
 
 # Run the simulation for a certain duration
-time.sleep(30)  # Duration of the simulation in seconds
+time.sleep(10)  # Duration of the simulation in seconds
 
 # Stop all nodes
 for node in nodes:
