@@ -1,66 +1,3 @@
-# import threading
-# import time
-# import queue
-# import random
-
-# class Router:
-#     def __init__(self, name, process_delay, max_queue_size, packet_loss_prob):
-#         self.name = name
-#         self.process_delay = process_delay
-#         self.max_queue_size = max_queue_size
-#         self.packet_loss_prob = packet_loss_prob
-#         self.queue = queue.Queue(maxsize=max_queue_size)
-#         self.running = True
-
-#     def process_packet(self):
-#         while self.running:
-#             if not self.queue.empty():
-#                 packet = self.queue.get()
-#                 if random.random() < self.packet_loss_prob:
-#                     print(f"Packet {packet} dropped at router {self.name}")
-#                     continue
-
-#                 time.sleep(self.process_delay)  # Simulate processing delay
-#                 print(f"Processed packet {packet} in router {self.name}")
-#                 # Further processing or forwarding logic goes here
-
-#     def add_packet(self, packet):
-#         if not self.queue.full():
-#             self.queue.put(packet)
-#         else:
-#             print(f"Router {self.name} is congested. Packet {packet} dropped.")
-
-# class NetworkSimulator:
-#     def __init__(self):
-#         self.routers = {}
-#         self.total_delay = 0
-
-#     def add_router(self, name, process_delay, max_queue_size, packet_loss_prob):
-#         router = Router(name, process_delay, max_queue_size, packet_loss_prob)
-#         self.routers[name] = router
-#         threading.Thread(target=router.process_packet).start()
-
-#     def send_packet(self, src_router, dest_router, packet):
-#         if src_router in self.routers and dest_router in self.routers:
-#             self.total_delay += self.routers[src_router].process_delay
-#             self.routers[src_router].add_packet(packet)
-#             # Assuming fixed transmission and propagation delay for simplicity
-#             transmission_delay = 1  
-#             propagation_delay = 1  
-#             self.total_delay += transmission_delay + propagation_delay
-#             print(f"Total end-to-end delay for {packet}: {self.total_delay} seconds")
-
-# # Example usage
-# simulator = NetworkSimulator()
-# simulator.add_router("Router1", 1, 5, 0.1)  # 1 second delay, max queue size 5, 10% packet loss
-# simulator.add_router("Router2", 2, 5, 0.2)  # 2 seconds delay, max queue size 5, 20% packet loss
-
-# # Sending packets
-# for i in range(10):
-#     simulator.send_packet("Router1", "Router2", f"Packet{i}")
-
-# # Run the simulation for 30 seconds
-# time.sleep(30)
 
 import threading
 import time
@@ -76,7 +13,8 @@ class CustomFormatter(logging.Formatter):
     yellow = "\x1b[33;21m"
     red = "\x1b[31;21m"
     reset = "\x1b[0m"
-    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)"
+    format = "%(asctime)s - %(levelname)s - %(message)s"
+    # format = '%(message)s'
 
     FORMATS = {
         logging.DEBUG: grey + format + reset,
@@ -92,12 +30,43 @@ class CustomFormatter(logging.Formatter):
         return formatter.format(record)
 
 # Configure logger
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler()
 handler.setFormatter(CustomFormatter())
 logger.addHandler(handler)
+
+# logging.basicConfig(level=logging.INFO, format='%(message)s')
+# logger = logging.getLogger()
+
+# class ColoredFormatter(logging.Formatter):
+#     GREY = '\033[90m'
+#     GREEN = '\033[92m'
+#     RED = '\033[91m'
+#     ORANGE = '\033[93m'
+#     BLUE = '\033[94m'
+#     YELLOW = '\033[33m'
+#     RESET = '\033[0m'
+
+#     FORMATS = {
+#         logging.DEBUG: GREY + '%(message)s' + RESET,
+#         logging.INFO: BLUE + '%(message)s' + RESET,
+#         logging.ERROR: RED + '%(message)s' + RESET,
+#         logging.WARNING: YELLOW + '%(message)s' + RESET,
+#         logging
+
+#         # MAC_NOT_FOUND_LEVEL: ORANGE + '%(message)s' + RESET
+#     }
+
+#     def format(self, record):
+#         log_fmt = self.FORMATS.get(record.levelno, '%(message)s')
+#         formatter = logging.Formatter(log_fmt, "%Y-%m-%d %H:%M:%S")
+#         return formatter.format(record)
+
+# handler = logging.StreamHandler()
+# handler.setFormatter(ColoredFormatter())
+# logger.handlers = [handler]
 
 class Router:
     def __init__(self, name, process_delay, max_queue_size, packet_loss_prob):

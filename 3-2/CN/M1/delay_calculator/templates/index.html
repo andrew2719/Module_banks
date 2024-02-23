@@ -1,0 +1,90 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delay Simulator</title>
+    <style>
+        #loadingBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+        }
+        #packet {
+            width: 50px;
+            height: 30px;
+            background-color: #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Delay Calculator</h1>
+    Data Rate (bps): <input type="number" id="data_rate" value="1000000"><br>
+    Message Size (bits): <input type="number" id="message_size" value="8000"><br>
+    Medium Speed (m/s): <input type="number" id="medium_speed" value="200000000"><br>
+    Distance (meters): <input type="number" id="distance" value="5000"><br>
+    <button onclick="calculateAndDisplay()">Calculate</button>
+
+    <h2>Simulation</h2>
+    <div id="loadingBarContainer" style="width: 100%; background-color: #ddd;">
+        <div id="loadingBar"></div>
+    </div>
+    <div id="packet"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function calculateAndDisplay() {
+    let dataRate = document.getElementById('data_rate').value;
+    let messageSize = document.getElementById('message_size').value;
+    let mediumSpeed = document.getElementById('medium_speed').value;
+    let distance = document.getElementById('distance').value;
+
+    axios.post('/calculate', { dataRate, messageSize, mediumSpeed, distance })
+        .then(response => {
+            const { transmissionDelay, propagationDelay } = response.data;
+            // Introduce a scale factor to slow down the animation
+            const scaleFactor = 100; // Adjust this factor to slow down the animation
+            simulateLoading(transmissionDelay * scaleFactor, propagationDelay * scaleFactor);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function simulateLoading(transmissionDelay, propagationDelay) {
+    const loadingBar = document.getElementById('loadingBar');
+    const packet = document.getElementById('packet');
+    const maxBarWidth = document.getElementById('loadingBarContainer').clientWidth;
+    const packetTravelDistance = maxBarWidth - packet.clientWidth;
+
+    // Clear previous simulation
+    loadingBar.style.width = '0%';
+    packet.style.transform = 'translateX(0px)';
+
+    // Simulate transmission delay with a loading bar
+    let start = Date.now();
+    let transmissionTimer = setInterval(() => {
+        let timePassed = (Date.now() - start) / 1000;
+        let percentage = Math.min(timePassed / transmissionDelay * 100, 100);
+        loadingBar.style.width = percentage + '%';
+
+        if (percentage >= 100) {
+            clearInterval(transmissionTimer);
+
+            // After transmission, simulate propagation delay with packet movement
+            let startPacket = Date.now();
+            let propagationTimer = setInterval(() => {
+                let timePassedPacket = (Date.now() - startPacket) / 1000;
+                let distanceTravelled = Math.min(timePassedPacket / propagationDelay * packetTravelDistance, packetTravelDistance);
+                packet.style.transform = `translateX(${distanceTravelled}px)`;
+
+                if (distanceTravelled >= packetTravelDistance) {
+                    clearInterval(propagationTimer);
+                }
+            }, 20);
+        }
+    }, 20);
+}
+
+    </script>
+</body>
+</html>

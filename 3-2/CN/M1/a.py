@@ -133,7 +133,7 @@ for node in nodes:
     node.start()
 
 # Run the simulation for a certain duration
-time.sleep(10)  # Duration of the simulation in seconds
+time.sleep(30)  # Duration of the simulation in seconds
 
 # Stop all nodes
 for node in nodes:
